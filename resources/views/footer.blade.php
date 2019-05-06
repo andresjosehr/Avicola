@@ -9,9 +9,9 @@
               <!-- /footer content -->
             </div>
           </div>
-      
-      <script src="{{asset("js/template.js")}}"></script>
-          
+          <script src="{{asset("js/template.js")}}"></script>
+          <script src="{{asset("js/app.js")}}"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
         </body>
       </html>
       

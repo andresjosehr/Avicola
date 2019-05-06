@@ -10,11 +10,16 @@
 
     <title>Granja Avicola</title>
     <link rel="stylesheet" href="{{asset("css/template.css")}}">
+    <link rel="stylesheet" href="{{asset("css/app.css")}}">
     <script
   src="https://code.jquery.com/jquery-2.2.4.js"
   integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
   crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.1/parsley.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
 
 
   </head>
@@ -49,10 +54,11 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li class="active"><a href="#"><i class="fa fa-home"></i> Inicio</a>
+                  <li><a href="#"><i class="fa fa-home"></i> Inicio</a>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Maestros <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                      <li><a href="mantenedores">Mantenedores</a></li>
                       <li><a href="#">Clientes</a></li>
                       <li><a href="#">Proovedores</a></li>
                       <li><a href="#">Familia</a></li>
@@ -66,7 +72,7 @@
                   </li>
                   <li><a><i class="fa fa-clone"></i> Guías <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#">Guía Salida</a></li>
+                      <li><a href="guia-salida">Guía Salida</a></li>
                       <li><a href="#">Guía Pedido</a></li>
                       <li><a href="#">Liquidación Venta Diaria</a></li>
                     </ul>

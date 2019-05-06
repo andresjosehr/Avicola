@@ -22,3 +22,5 @@
     require("./../template/vendors/moment/min/moment.min.js");
     require("./../../node_modules/bootstrap-daterangepicker/daterangepicker.js");
     require("./../template/build/js/custom.min.js");
+    require("./../../node_modules/parsleyjs/src/parsley.js");
+    require("./../../node_modules/parsleyjs/src/i18n/es.js");

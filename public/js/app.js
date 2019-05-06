@@ -91,14 +91,35 @@
   !*** ./resources/js/app.js ***!
   \*****************************/
 /*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ./custom/general.js */ "./resources/js/custom/general.js");
+
+/***/ }),
+
+/***/ "./resources/js/custom/general.js":
+/*!****************************************!*\
+  !*** ./resources/js/custom/general.js ***!
+  \****************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-// require('./bootstrap');
+window.ValidarGeneral = function (id, tipo) {
+  var form = document.getElementById(id);
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+  });
+  var i = 0;
+  $('#' + id).parsley().on('form:success', function () {
+    if (i == 0) {
+      if (tipo == "crear") {}
+
+      alert("Creado");
+    }
+
+    i++;
+  });
+};
 
 /***/ }),
 
@@ -120,8 +141,8 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\xampp\htdocs\Workana\Avicola\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! c:\xampp\htdocs\Workana\Avicola\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\Workana\Avicola\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\Workana\Avicola\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

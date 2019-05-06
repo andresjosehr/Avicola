@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('escritorio');
 });
+
+Route::resource('guia-salida', "GuiaSalidaController");
+Route::resource('mantenedores', "MantenedoresController");
