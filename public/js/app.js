@@ -95,6 +95,103 @@
 
 __webpack_require__(/*! ./custom/general.js */ "./resources/js/custom/general.js");
 
+__webpack_require__(/*! ./custom/crear.js */ "./resources/js/custom/crear.js");
+
+__webpack_require__(/*! ./custom/editar.js */ "./resources/js/custom/editar.js");
+
+__webpack_require__(/*! ./custom/eliminar.js */ "./resources/js/custom/eliminar.js");
+
+__webpack_require__(/*! ./custom/clientes.js */ "./resources/js/custom/clientes.js");
+
+/***/ }),
+
+/***/ "./resources/js/custom/clientes.js":
+/*!*****************************************!*\
+  !*** ./resources/js/custom/clientes.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var _this = this;
+
+window.validateTipoDocumento = function () {
+  $("#crearClienteForm #tipo_persona").change(function (e) {
+    if ($("#crearClienteForm #tipo_persona option:selected").val() == 2) {
+      $("#crearClienteForm #tipo_documento option").map(function () {
+        if ($(this).val() != 9) $(this).hide();else $(this).attr("selected", "selected");
+      });
+    } else {
+      $("#crearClienteForm #tipo_documento option").map(function () {
+        $(this).show();
+      });
+    }
+  });
+};
+
+window.validateUbigeo = function () {
+  $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').prop('disabled', true).trigger("chosen:updated");
+  $("#pais").chosen().change(function (e) {
+    if ($("#crearClienteForm #pais").val() == "Perú") {
+      $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').prop('disabled', false).trigger("chosen:updated");
+    } else {
+      $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').prop('disabled', true).trigger("chosen:updated");
+    }
+  });
+  $("#crearClienteForm #departamento").chosen().change(function (e) {
+    $("#crearClienteForm #provincia option").map(function () {
+      console.log($(_this));
+      console.log($(_this).attr("id"));
+    });
+  });
+};
+
+/***/ }),
+
+/***/ "./resources/js/custom/crear.js":
+/*!**************************************!*\
+  !*** ./resources/js/custom/crear.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.crearElemento = function (idForm, modulo) {
+  var Data = {};
+  $("#" + idForm + " input").map(function (key, input) {
+    return Data[input.id] = input.value;
+  });
+  $.ajax({
+    type: 'POST',
+    url: url + "/" + modulo,
+    data: Data,
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success(result) {}
+  });
+};
+
+/***/ }),
+
+/***/ "./resources/js/custom/editar.js":
+/*!***************************************!*\
+  !*** ./resources/js/custom/editar.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ "./resources/js/custom/eliminar.js":
+/*!*****************************************!*\
+  !*** ./resources/js/custom/eliminar.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
 /***/ }),
 
 /***/ "./resources/js/custom/general.js":
@@ -104,20 +201,17 @@ __webpack_require__(/*! ./custom/general.js */ "./resources/js/custom/general.js
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.ValidarGeneral = function (id, tipo) {
-  var form = document.getElementById(id);
-  form.addEventListener('submit', function (e) {
+window.ValidarGeneral = function (id, tipo, modulo) {
+  $("#" + id).on('submit', function (e) {
     e.preventDefault();
-  });
-  var i = 0;
-  $('#' + id).parsley().on('form:success', function () {
-    if (i == 0) {
-      if (tipo == "crear") {}
+    var form = $(this);
+    form.parsley().validate();
 
-      alert("Creado");
+    if (form.parsley().isValid()) {
+      if (tipo == "crear") {
+        crearElemento(id, modulo);
+      }
     }
-
-    i++;
   });
 };
 

@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class MantenedoresController extends Controller
+use App\TipoPersona;
+use App\TipoDocumento;
+use App\Paises;
+use App\Ubigeo;
+use DB;
+
+class ClientesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +19,13 @@ class MantenedoresController extends Controller
      */
     public function index()
     {
-        return view("maestros.mantenedores.mantenedores");
+        $TipoPersona=TipoPersona::all(); $TipoDocumento=TipoDocumento::all(); $Paises=Paises::all();
+
+        $Ubigeo["departamento"]= DB::table("ubigeo")->select("departamento")->distinct()->get();
+        $Ubigeo["provincia"]= DB::table("ubigeo")->select("provincia", "departamento")->distinct("provincia")->get();
+        $Ubigeo["distrito"]= DB::table("ubigeo")->select("distrito", "provincia")->distinct("distrito")->get();
+
+        return view("maestros.clientes.clientes", ["TipoPersonas" => $TipoPersona, "TipoDocumentos" => $TipoDocumento, "Paises" => $Paises, "Ubigeo" => $Ubigeo]);
     }
 
     /**
@@ -32,9 +44,9 @@ class MantenedoresController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $Request)
+    public function store(Request $request)
     {
-        return $Request;
+        return $request;
     }
 
     /**

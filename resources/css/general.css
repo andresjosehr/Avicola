@@ -70,6 +70,10 @@ span{
   transform:scale(1);
 }
 
+.chosen-container{
+  width: 100% !important;
+}
+
 
 
 .loading_avicola{
