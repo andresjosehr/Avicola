@@ -1,21 +1,18 @@
-<div class="contenedor">
-   <button onclick="$('#crearCliente').modal('toggle')" class="botonF1">
-   <span>+</span>
-   </button>
-</div>
-<div id="crearCliente" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+<div id="editarCliente" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
-            <h2>Crear Cliente</h2>
+            <h2>Editar Cliente</h2>
          </div>
          <div class="modal-body">
-            <form id="crearClienteForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
+            <form id="editarClienteForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
                <div class="row">
                   <div class="col-md-6">
                      <div class="form-group">
                         <small class='form_description'>Nombre o Razón social</small>
                            <input type="text" id="nombre" required="required" class="form-control col-md-7 col-xs-12">
+                           <input type="hidden" id="id">
                      </div>
                   </div>
                   <div class="col-md-6">
@@ -117,7 +114,7 @@
                   <div class="ln_solid"></div>
                   <div class="form-group">
                      <div class="col-md-12" style="padding-top: 15px;">
-                        <button {{-- type="submit" --}} onclick="ValidarGeneral('crearClienteForm', 'crear', 'clientes')" style="width: 100%" class="btn btn-success btn-modal btn_avicola">Guardar</button>
+                        <button {{-- type="submit" --}} onclick="ValidarGeneral('editarClienteForm', 'update', 'clientes')" style="width: 100%" class="btn btn-success btn-modal btn_avicola">Guardar</button>
                         <div align="center">
                            <div class="loading_avicola" style="display:none;width: 35px;height: 35px;"></div>
                         </div>
@@ -143,25 +140,25 @@
 </style>
 <script>
 	$(document).ready(function(){
-      $("#crearClienteForm #pais, #crearClienteForm #provincia, #crearClienteForm #departamento, #crearClienteForm #distrito, #crearClienteForm #tipo_persona, #crearClienteForm #tipo_documento").chosen();
-      validateUbigeo('crearClienteForm');
-      validateTipoDocumento();
+      $("#editarClienteForm #pais, #editarClienteForm #provincia, #editarClienteForm #departamento, #editarClienteForm #distrito, #editarClienteForm #tipo_persona, #editarClienteForm #tipo_documento").chosen();
+      validateUbigeoEditar("editarClienteForm");
+      validateTipoDocumentoEditar();
+   });
 
-      $("#crearClienteForm #provincia").empty();
+      $("#editarClienteForm #provincia").empty();
          for(key in window.Ubigeo["AMAZONAS"]){
-            $("#crearClienteForm #provincia").append("<option>"+key+"</option>");
+            $("#editarClienteForm #provincia").append("<option>"+key+"</option>");
          }
 
-         $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').trigger("chosen:updated");
-   	});
+         $('#editarClienteForm #departamento, #editarClienteForm #provincia, #editarClienteForm #distrito').trigger("chosen:updated");
 
 
 
-      $("#crearClienteForm #distrito").empty();
+      $("#editarClienteForm #distrito").empty();
 
-         $("#crearClienteForm #distrito").append("<option>"+"AMAZONAS"+"</option>");
+         $("#editarClienteForm #distrito").append("<option>"+"AMAZONAS"+"</option>");
 
-         $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').trigger("chosen:updated");
+         $('#editarClienteForm #departamento, #editarClienteForm #provincia, #editarClienteForm #distrito').trigger("chosen:updated");
 
 
 </script>

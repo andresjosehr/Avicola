@@ -18,3 +18,4 @@ Route::get('/', function () {
 Route::resource('guia-salida', "GuiaSalidaController");
 Route::resource('mantenedores', "MantenedoresController");
 Route::resource('clientes', "ClientesController");
+Route::post('clientes/listUpdate', "ClientesController@listUpdate");

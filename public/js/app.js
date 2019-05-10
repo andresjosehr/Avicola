@@ -99,6 +99,8 @@ __webpack_require__(/*! ./custom/crear.js */ "./resources/js/custom/crear.js");
 
 __webpack_require__(/*! ./custom/editar.js */ "./resources/js/custom/editar.js");
 
+__webpack_require__(/*! ./custom/update.js */ "./resources/js/custom/update.js");
+
 __webpack_require__(/*! ./custom/eliminar.js */ "./resources/js/custom/eliminar.js");
 
 __webpack_require__(/*! ./custom/clientes.js */ "./resources/js/custom/clientes.js");
@@ -112,17 +114,19 @@ __webpack_require__(/*! ./custom/clientes.js */ "./resources/js/custom/clientes.
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var _this = this;
-
 window.validateTipoDocumento = function () {
   $("#crearClienteForm #tipo_persona").change(function (e) {
     if ($("#crearClienteForm #tipo_persona option:selected").val() == 2) {
       $("#crearClienteForm #tipo_documento option").map(function () {
-        if ($(this).val() != 9) $(this).hide();else $(this).attr("selected", "selected");
+        if ($(this).val() != 4) {
+          $(this).hide();
+          $('#crearClienteForm #tipo_documento, #crearClienteForm #tipo_persona').trigger("chosen:updated");
+        } else $(this).attr("selected", "selected");
       });
     } else {
       $("#crearClienteForm #tipo_documento option").map(function () {
         $(this).show();
+        $('#crearClienteForm #tipo_documento, #crearClienteForm #tipo_persona').trigger("chosen:updated");
       });
     }
   });
@@ -130,7 +134,7 @@ window.validateTipoDocumento = function () {
 
 window.validateUbigeo = function () {
   $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').prop('disabled', true).trigger("chosen:updated");
-  $("#pais").chosen().change(function (e) {
+  $("#crearClienteForm #pais").chosen().change(function (e) {
     if ($("#crearClienteForm #pais").val() == "Perú") {
       $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').prop('disabled', false).trigger("chosen:updated");
     } else {
@@ -138,11 +142,131 @@ window.validateUbigeo = function () {
     }
   });
   $("#crearClienteForm #departamento").chosen().change(function (e) {
-    $("#crearClienteForm #provincia option").map(function () {
-      console.log($(_this));
-      console.log($(_this).attr("id"));
-    });
+    $("#crearClienteForm #provincia").empty();
+
+    for (key in window.Ubigeo[$("#crearClienteForm #departamento").val()]) {
+      $("#crearClienteForm #provincia").append("<option>" + key + "</option>");
+    }
+
+    $("#crearClienteForm #distrito").empty();
+
+    for (key in window.Ubigeo[$("#crearClienteForm #departamento").val()][$("#crearClienteForm #provincia").val()]) {
+      $("#crearClienteForm #distrito").append("<option>" + key + "</option>");
+    }
+
+    $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').trigger("chosen:updated");
   });
+  $("#crearClienteForm #provincia").chosen().change(function (e) {
+    $("#crearClienteForm #distrito").empty();
+
+    for (key in window.Ubigeo[$("#crearClienteForm #departamento").val()][$("#crearClienteForm #provincia").val()]) {
+      $("#crearClienteForm #distrito").append("<option>" + key + "</option>");
+    }
+
+    $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').trigger("chosen:updated");
+  });
+};
+
+window.validateTipoDocumentoEditar = function () {
+  $("#editarClienteForm #tipo_persona").change(function (e) {
+    if ($("#editarClienteForm #tipo_persona option:selected").val() == 2) {
+      $("#editarClienteForm #tipo_documento option").map(function () {
+        if ($(this).val() != 4) {
+          $(this).hide();
+          $('#editarClienteForm #tipo_documento, #editarClienteForm #tipo_persona').trigger("chosen:updated");
+        } else $(this).attr("selected", "selected");
+      });
+    } else {
+      $("#editarClienteForm #tipo_documento option").map(function () {
+        $(this).show();
+        $('#editarClienteForm #tipo_documento, #editarClienteForm #tipo_persona').trigger("chosen:updated");
+      });
+    }
+  });
+};
+
+window.validateUbigeoEditar = function () {
+  $('#editarClienteForm #departamento, #editarClienteForm #provincia, #editarClienteForm #distrito').prop('disabled', true).trigger("chosen:updated");
+  $("#editarClienteForm #pais").chosen().change(function (e) {
+    if ($("#editarClienteForm #pais").val() == "Perú") {
+      $('#editarClienteForm #departamento, #editarClienteForm #provincia, #editarClienteForm #distrito').prop('disabled', false).trigger("chosen:updated");
+    } else {
+      $('#editarClienteForm #departamento, #editarClienteForm #provincia, #editarClienteForm #distrito').prop('disabled', true).trigger("chosen:updated");
+    }
+  });
+  $("#editarClienteForm #departamento").chosen().change(function (e) {
+    $("#editarClienteForm #provincia").empty();
+
+    for (key in window.Ubigeo[$("#editarClienteForm #departamento").val()]) {
+      $("#editarClienteForm #provincia").append("<option>" + key + "</option>");
+    }
+
+    $("#editarClienteForm #distrito").empty();
+
+    for (key in window.Ubigeo[$("#editarClienteForm #departamento").val()][$("#editarClienteForm #provincia").val()]) {
+      $("#editarClienteForm #distrito").append("<option>" + key + "</option>");
+    }
+
+    $('#editarClienteForm #departamento, #editarClienteForm #provincia, #editarClienteForm #distrito').trigger("chosen:updated");
+  });
+  $("#editarClienteForm #provincia").chosen().change(function (e) {
+    $("#editarClienteForm #distrito").empty();
+
+    for (key in window.Ubigeo[$("#editarClienteForm #departamento").val()][$("#editarClienteForm #provincia").val()]) {
+      $("#editarClienteForm #distrito").append("<option>" + key + "</option>");
+    }
+
+    $('#editarClienteForm #departamento, #editarClienteForm #provincia, #editarClienteForm #distrito').trigger("chosen:updated");
+  });
+};
+
+window.EditarCliente = function (Datos, departamento, provincia, distrito, idForm) {
+  DatosEdit = JSON.parse(Datos);
+  Datos = JSON.parse(Datos);
+  $("#" + idForm + " input:not(.chosen-search-input)").map(function (key, input) {
+    input.value = Datos[input.id];
+  });
+  $("#" + idForm + " select").map(function (key, input) {
+    input.value = Datos[input.id];
+    $('#' + idForm + ' #' + input.id).trigger("chosen:updated");
+  });
+
+  if (DatosEdit.pais == "Perú") {
+    $("#" + idForm + " #departamento").removeAttr("disabled");
+    $("#" + idForm + " #provincia").removeAttr("disabled");
+    $("#" + idForm + " #distrito").removeAttr("disabled");
+    $("#" + idForm + " #departamento").val(departamento);
+    $("#" + idForm + " #provincia").empty();
+
+    for (key in window.Ubigeo[departamento]) {
+      $("#" + idForm + " #provincia").append("<option>" + key + "</option>");
+    }
+
+    $("#" + idForm + " #distrito").empty();
+
+    for (key in window.Ubigeo[departamento][provincia]) {
+      $("#" + idForm + " #distrito").append("<option>" + key + "</option>");
+    }
+
+    $("#" + idForm + " #provincia").val(departamento);
+    $("#" + idForm + " #distrito").val(distrito);
+  } else {
+    $("#" + idForm + " #departamento").attr("disabled", "disabled");
+    $("#" + idForm + " #provincia").attr("disabled", "disabled");
+    $("#" + idForm + " #distrito").attr("disabled", "disabled");
+  }
+
+  if (Datos.tipo_persona == 2) {
+    $("#" + idForm + " #tipo_documento option").map(function () {
+      if ($(this).val() != 4) {
+        $(this).hide();
+        $('#' + idForm + ' #tipo_documento, #' + idForm + ' #tipo_persona').trigger("chosen:updated");
+      } else $(this).attr("selected", "selected");
+    });
+  }
+
+  $('#' + idForm + ' #departamento, #' + idForm + ' #provincia, #' + idForm + ' #distrito').trigger("chosen:updated");
+  $('#editarCliente').modal('toggle');
 };
 
 /***/ }),
@@ -156,8 +280,11 @@ window.validateUbigeo = function () {
 
 window.crearElemento = function (idForm, modulo) {
   var Data = {};
-  $("#" + idForm + " input").map(function (key, input) {
+  $("#" + idForm + " input,#" + idForm + " select").map(function (key, input) {
     return Data[input.id] = input.value;
+  });
+  $(".btn_avicola").hide("fast", function () {
+    $(".loading_avicola").show("fast");
   });
   $.ajax({
     type: 'POST',
@@ -166,7 +293,25 @@ window.crearElemento = function (idForm, modulo) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    success: function success(result) {}
+    success: function success(result) {
+      if (result == "Exito") {
+        swal("¡Listo!", "Registro realizado de manera exitosa", "success");
+        $("#" + idForm + " input").map(function (key, input) {
+          $(this).val("");
+        });
+        $(".loading_avicola").hide("fast", function () {
+          $(".btn_avicola").show("fast");
+        });
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $("#listUpdate").load(url + "/" + modulo + "/listUpdate", {
+          Data: "Ex"
+        });
+      }
+    }
   });
 };
 
@@ -179,7 +324,17 @@ window.crearElemento = function (idForm, modulo) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+window.editarElemento = function (Datos, idForm) {
+  Datos = JSON.parse(Datos);
+  $("#" + idForm + " input:not(.chosen-search-input)").map(function (key, input) {
+    input.value = Datos[input.id];
+  }); // $("#"+idForm+" select").map((key, input)=>{ 
+  // 	input.value=Datos[input.id] ;
+  // 	$('#'+idForm+' #'+input.id).trigger("chosen:updated");
+  // });
 
+  $('#editarCliente').modal('toggle');
+};
 
 /***/ }),
 
@@ -190,7 +345,30 @@ window.crearElemento = function (idForm, modulo) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-
+window.EliminarElemento = function (id, modulo) {
+  swal({
+    title: "¡Espera!",
+    text: "Estas seguro de eliminar este elemento?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true
+  }).then(function (willDelete) {
+    if (willDelete) {
+      swal("¡Listo!", "Elemento eliminado satisfactoriamente", "success");
+      $("#" + modulo + "_" + id).fadeOut("slow", function () {
+        $("#" + modulo + "_" + id).remove();
+      });
+      $.ajax({
+        type: 'DELETE',
+        url: url + "/" + modulo + "/" + id,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function success(result) {}
+      });
+    } else {}
+  });
+};
 
 /***/ }),
 
@@ -202,6 +380,8 @@ window.crearElemento = function (idForm, modulo) {
 /***/ (function(module, exports) {
 
 window.ValidarGeneral = function (id, tipo, modulo) {
+  var execute = false;
+  var i = 0;
   $("#" + id).on('submit', function (e) {
     e.preventDefault();
     var form = $(this);
@@ -209,7 +389,64 @@ window.ValidarGeneral = function (id, tipo, modulo) {
 
     if (form.parsley().isValid()) {
       if (tipo == "crear") {
-        crearElemento(id, modulo);
+        if (execute == false && i == 0) {
+          crearElemento(id, modulo);
+          execute = true;
+          i = 1;
+        }
+      }
+
+      if (tipo == "update") {
+        if (execute == false && i == 0) {
+          updateElemento(id, modulo);
+          execute = true;
+          i = 1;
+        }
+      }
+    }
+  });
+};
+
+/***/ }),
+
+/***/ "./resources/js/custom/update.js":
+/*!***************************************!*\
+  !*** ./resources/js/custom/update.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.updateElemento = function (idForm, modulo) {
+  var Data = {};
+  $("#" + idForm + " input,#" + idForm + " select").map(function (key, input) {
+    return Data[input.id] = input.value;
+  });
+  $(".btn_avicola").hide("fast", function () {
+    $(".loading_avicola").show("fast");
+  });
+  Data._method = "POST";
+  $.ajax({
+    type: 'PUT',
+    url: url + "/" + modulo + "/" + Data.id,
+    data: Data,
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success(result) {
+      $(".loading_avicola").hide("fast", function () {
+        $(".btn_avicola").show("fast");
+      });
+
+      if (result == "Exito") {
+        swal("¡Listo!", "Registro realizado de manera exitosa", "success");
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $("#listUpdate").load(url + "/" + modulo + "/listUpdate", {
+          Data: "Ex"
+        });
       }
     }
   });

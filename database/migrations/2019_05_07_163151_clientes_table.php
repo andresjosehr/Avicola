@@ -26,7 +26,8 @@ class ClientesTable extends Migration
             $table->string('codigo_postal');
             $table->string('codigo_ubigeo')->nullable();
             $table->string('pais');
-            $table->string('estado');
+            $table->string('estado')->default(0);
+            $table->timestamps();
         });
     }
 
