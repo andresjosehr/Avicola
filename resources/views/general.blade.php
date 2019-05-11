@@ -65,7 +65,7 @@
                     <ul class="nav child_menu">
                       <li><a href="mantenedores">Mantenedores</a></li>
                       <li><a href="clientes">Clientes</a></li>
-                      <li><a href="#">Proovedores</a></li>
+                      <li><a href="proveedores">Proovedores</a></li>
                       <li><a href="#">Familia</a></li>
                       <li><a href="#">Clase</a></li>
                       <li><a href="#">Productos</a></li>

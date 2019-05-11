@@ -1,6 +1,12 @@
 
 
-window.EditarCliente=(Datos, departamento, provincia, distrito, idForm)=>{
+
+
+
+
+
+
+window.EditarProveedor=(Datos, departamento, provincia, distrito, idForm)=>{
 
 	DatosEdit=JSON.parse(Datos);
 
@@ -65,7 +71,7 @@ window.EditarCliente=(Datos, departamento, provincia, distrito, idForm)=>{
 
 
 	$('#'+idForm+' #departamento, #'+idForm+' #provincia, #'+idForm+' #distrito').trigger("chosen:updated");
-	$('#editarCliente').modal('toggle')
+	$('#editarProveedor').modal('toggle')
 
 
 }
