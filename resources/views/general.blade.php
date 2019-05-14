@@ -13,10 +13,10 @@
     <link rel="stylesheet" href="{{asset("css/app.css")}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="stylesheet" href="{{asset("css/of.css")}}">
+{{--     <link rel="stylesheet" href="{{asset("css/of.css")}}">
     <script src="{{asset("js/off.js")}}"></script>
-
-{{--     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+ --}}
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
@@ -27,7 +27,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-  <script src="http://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"></script> --}}
+  <script src="http://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"></script>
   <script> var url = '{{Request::root()}}' </script>
 
 
