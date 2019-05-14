@@ -34,7 +34,7 @@
                     <td>{{$Cliente->codigo}}</td>
                     <td>{{$Cliente->pais}}</td>
                     <td>{{$Cliente->direccion}}</td>
-                    <td>@if($Cliente->codigo_ubigeo=="") No aplica @else {{$Cliente->codigo_ubigeo}} @endif </td>
+                    <td>@if($Cliente->codigo_ubigeo=="") No aplica @else 0{{$Cliente->codigo_ubigeo}} @endif </td>
                     <td style="display: flex;">
                         <a onclick="EditarCliente('{{$Cliente}}', '{{str_replace($no_permitidas, $permitidas ,$Cliente->ubigeo["departamento"])}}', '{{str_replace($no_permitidas, $permitidas, $Cliente->ubigeo["provincia"])}}', '{{str_replace($no_permitidas, $permitidas ,$Cliente->ubigeo["distrito"])}}', 'editarClienteForm')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
                         <a onclick="EliminarElemento('{{$Cliente->id}}', 'clientes')" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i> Eliminar </a>
@@ -58,5 +58,9 @@
     </table>
 
     <script>
-            $('#clientesTable').DataTable();
+            $('#clientesTable').DataTable({
+                language: {
+                    url: 'http://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+                }
+            });
     </script>

@@ -69,13 +69,13 @@ window.validateUbigeo=() => {
 
         $("#crearClienteForm #provincia").empty();
         for(key in window.Ubigeo[$("#crearClienteForm #departamento").val()]){
-            $("#crearClienteForm #provincia").append("<option>"+key+"</option>");
+            $("#crearClienteForm #provincia").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
         $("#crearClienteForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#crearClienteForm #departamento").val()][$("#crearClienteForm #provincia").val()]){
-            $("#crearClienteForm #distrito").append("<option>"+key+"</option>");
+            $("#crearClienteForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').trigger("chosen:updated");
@@ -89,7 +89,7 @@ window.validateUbigeo=() => {
         $("#crearClienteForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#crearClienteForm #departamento").val()][$("#crearClienteForm #provincia").val()]){
-            $("#crearClienteForm #distrito").append("<option>"+key+"</option>");
+            $("#crearClienteForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').trigger("chosen:updated");
@@ -145,13 +145,13 @@ window.validateUbigeoEditar=() => {
 
         $("#editarClienteForm #provincia").empty();
         for(key in window.Ubigeo[$("#editarClienteForm #departamento").val()]){
-            $("#editarClienteForm #provincia").append("<option>"+key+"</option>");
+            $("#editarClienteForm #provincia").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
         $("#editarClienteForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#editarClienteForm #departamento").val()][$("#editarClienteForm #provincia").val()]){
-            $("#editarClienteForm #distrito").append("<option>"+key+"</option>");
+            $("#editarClienteForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#editarClienteForm #departamento, #editarClienteForm #provincia, #editarClienteForm #distrito').trigger("chosen:updated");
@@ -165,7 +165,7 @@ window.validateUbigeoEditar=() => {
         $("#editarClienteForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#editarClienteForm #departamento").val()][$("#editarClienteForm #provincia").val()]){
-            $("#editarClienteForm #distrito").append("<option>"+key+"</option>");
+            $("#editarClienteForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#editarClienteForm #departamento, #editarClienteForm #provincia, #editarClienteForm #distrito').trigger("chosen:updated");

@@ -24,6 +24,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script src="http://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"></script>
   <script> var url = '{{Request::root()}}' </script>
 
 

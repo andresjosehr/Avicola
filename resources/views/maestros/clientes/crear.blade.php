@@ -14,6 +14,26 @@
                <div class="row">
                   <div class="col-md-6">
                      <div class="form-group">
+                        <small class='form_description'>Tipo Persona</small>
+                           <select id="tipo_persona" class="form-control" required="">
+                              @foreach ($TipoPersonas as $TipoPersona)
+                                <option value="{{$TipoPersona->id}}">{{$TipoPersona->tipo}}</option>
+                              @endforeach
+                          </select>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <small class='form_description'>Tipo de Documento</small>
+                           <select id="tipo_documento" class="form-control" required="">
+                              @foreach ($TipoDocumentos as $TipoDocumento)
+                                <option value="{{$TipoDocumento->id}}">{{$TipoDocumento->descripcion}}</option>
+                              @endforeach
+                          </select>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
                         <small class='form_description'>Nombre o Razón social</small>
                            <input type="text" id="nombre" required="required" class="form-control col-md-7 col-xs-12">
                      </div>
@@ -34,26 +54,6 @@
                      <div class="form-group">
                         <small class='form_description'>Apellido Materno</small>
                            <input type="text" id="apellido_materno" required="required" class="form-control col-md-7 col-xs-12">
-                     </div>
-                  </div>
-                  <div class="col-md-6">
-                     <div class="form-group">
-                        <small class='form_description'>Tipo Persona</small>
-                           <select id="tipo_persona" class="form-control" required="">
-                              @foreach ($TipoPersonas as $TipoPersona)
-                                <option value="{{$TipoPersona->id}}">{{$TipoPersona->tipo}}</option>
-                              @endforeach
-                          </select>
-                     </div>
-                  </div>
-                  <div class="col-md-6">
-                     <div class="form-group">
-                        <small class='form_description'>Tipo de Documento</small>
-                           <select id="tipo_documento" class="form-control" required="">
-                              @foreach ($TipoDocumentos as $TipoDocumento)
-                                <option value="{{$TipoDocumento->id}}">{{$TipoDocumento->descripcion}}</option>
-                              @endforeach
-                          </select>
                      </div>
                   </div>
                   <div class="col-md-6">
@@ -114,7 +114,7 @@
                               </select>
                      </div>
                   </div>
-                  <div class="ln_solid"></div>
+                  <div style="display: none" class="ln_solid"></div>
                   <div class="form-group">
                      <div class="col-md-12" style="padding-top: 15px;">
                         <button {{-- type="submit" --}} onclick="ValidarGeneral('crearClienteForm', 'crear', 'clientes')" style="width: 100%" class="btn btn-success btn-modal btn_avicola">Guardar</button>
@@ -149,8 +149,10 @@
 
       $("#crearClienteForm #provincia").empty();
          for(key in window.Ubigeo["AMAZONAS"]){
-            $("#crearClienteForm #provincia").append("<option>"+key+"</option>");
+            $("#crearClienteForm #provincia").append("<option>"+key.replace(/_/g, " ")+"</option>");
          }
+
+
 
          $('#crearClienteForm #departamento, #crearClienteForm #provincia, #crearClienteForm #distrito').trigger("chosen:updated");
    	});
