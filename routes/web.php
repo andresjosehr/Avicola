@@ -23,3 +23,7 @@ Route::post('clientes/listUpdate', "ClientesController@listUpdate");
 
 Route::resource('proveedores', "ProveedoresController");
 Route::post('proveedores/listUpdate', "ProveedoresController@listUpdate");
+
+
+Route::resource('contactos', "ContactosController");
+Route::post('contactos/listUpdate', "ContactosController@listUpdate");

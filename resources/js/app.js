@@ -5,3 +5,4 @@ require("./custom/update.js");
 require("./custom/eliminar.js");
 require("./custom/clientes.js");
 require("./custom/proveedores.js");
+require("./custom/contactos.js");

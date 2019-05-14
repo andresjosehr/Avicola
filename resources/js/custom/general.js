@@ -346,3 +346,169 @@ window.validateUbigeoEditarProvee=() => {
     });
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+window.validateTipoDocumentoCont=() => {
+    $("#crearContactoForm #tipo_persona").change((e) => {
+      if($("#crearContactoForm #tipo_persona option:selected").val()==2){
+          $("#crearContactoForm #tipo_documento option").map(function(){
+            if($(this).val()!=4) {
+                $(this).hide();
+                $('#crearContactoForm #tipo_documento, #crearContactoForm #tipo_persona').trigger("chosen:updated");
+            } else $(this).attr("selected", "selected")
+        });
+      } else{
+          $("#crearContactoForm #tipo_documento option").map(function(){
+            $(this).show();
+            $('#crearContactoForm #tipo_documento, #crearContactoForm #tipo_persona').trigger("chosen:updated");
+        });
+      }
+    });
+}
+
+
+window.validateUbigeoCont=() => {
+
+    $('#crearContactoForm #departamento, #crearContactoForm #provincia, #crearContactoForm #distrito').prop('disabled', true).trigger("chosen:updated");
+
+    $("#crearContactoForm #pais").chosen().change((e) => {
+            if ($("#crearContactoForm #pais").val()=="Perú") {
+                $('#crearContactoForm #departamento, #crearContactoForm #provincia, #crearContactoForm #distrito').prop('disabled', false).trigger("chosen:updated");
+            } else{
+                $('#crearContactoForm #departamento, #crearContactoForm #provincia, #crearContactoForm #distrito').prop('disabled', true).trigger("chosen:updated");
+            }
+    });
+
+
+    $("#crearContactoForm #departamento").chosen().change((e) => {
+
+        $("#crearContactoForm #provincia").empty();
+        for(key in window.Ubigeo[$("#crearContactoForm #departamento").val()]){
+            $("#crearContactoForm #provincia").append("<option>"+key+"</option>");
+        }
+
+        $("#crearContactoForm #distrito").empty();
+
+        for(key in window.Ubigeo[$("#crearContactoForm #departamento").val()][$("#crearContactoForm #provincia").val()]){
+            $("#crearContactoForm #distrito").append("<option>"+key+"</option>");
+        }
+
+            $('#crearContactoForm #departamento, #crearContactoForm #provincia, #crearContactoForm #distrito').trigger("chosen:updated");
+
+    });
+
+
+
+    $("#crearContactoForm #provincia").chosen().change((e) => {
+
+        $("#crearContactoForm #distrito").empty();
+
+        for(key in window.Ubigeo[$("#crearContactoForm #departamento").val()][$("#crearContactoForm #provincia").val()]){
+            $("#crearContactoForm #distrito").append("<option>"+key+"</option>");
+        }
+
+            $('#crearContactoForm #departamento, #crearContactoForm #provincia, #crearContactoForm #distrito').trigger("chosen:updated");
+
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+window.validateTipoDocumentoEditarCont=() => {
+    $("#editarContactoForm #tipo_persona").change((e) => {
+      if($("#editarContactoForm #tipo_persona option:selected").val()==2){
+          $("#editarContactoForm #tipo_documento option").map(function(){
+            if($(this).val()!=4) {
+                $(this).hide();
+                $('#editarContactoForm #tipo_documento, #editarContactoForm #tipo_persona').trigger("chosen:updated");
+            } else $(this).attr("selected", "selected")
+        });
+      } else{
+          $("#editarContactoForm #tipo_documento option").map(function(){
+            $(this).show();
+            $('#editarContactoForm #tipo_documento, #editarContactoForm #tipo_persona').trigger("chosen:updated");
+        });
+      }
+    });
+}
+
+
+window.validateUbigeoEditarCont=() => {
+
+    $('#editarContactoForm #departamento, #editarContactoForm #provincia, #editarContactoForm #distrito').prop('disabled', true).trigger("chosen:updated");
+
+    $("#editarContactoForm #pais").chosen().change((e) => {
+            if ($("#editarContactoForm #pais").val()=="Perú") {
+                $('#editarContactoForm #departamento, #editarContactoForm #provincia, #editarContactoForm #distrito').prop('disabled', false).trigger("chosen:updated");
+            } else{
+                $('#editarContactoForm #departamento, #editarContactoForm #provincia, #editarContactoForm #distrito').prop('disabled', true).trigger("chosen:updated");
+            }
+    });
+
+
+    $("#editarContactoForm #departamento").chosen().change((e) => {
+
+        $("#editarContactoForm #provincia").empty();
+        for(key in window.Ubigeo[$("#editarContactoForm #departamento").val()]){
+            $("#editarContactoForm #provincia").append("<option>"+key+"</option>");
+        }
+
+        $("#editarContactoForm #distrito").empty();
+
+        for(key in window.Ubigeo[$("#editarContactoForm #departamento").val()][$("#editarContactoForm #provincia").val()]){
+            $("#editarContactoForm #distrito").append("<option>"+key+"</option>");
+        }
+
+            $('#editarContactoForm #departamento, #editarContactoForm #provincia, #editarContactoForm #distrito').trigger("chosen:updated");
+
+    });
+
+
+
+    $("#editarContactoForm #provincia").chosen().change((e) => {
+
+        $("#editarContactoForm #distrito").empty();
+
+        for(key in window.Ubigeo[$("#editarContactoForm #departamento").val()][$("#editarContactoForm #provincia").val()]){
+            $("#editarContactoForm #distrito").append("<option>"+key+"</option>");
+        }
+
+            $('#editarContactoForm #departamento, #editarContactoForm #provincia, #editarContactoForm #distrito').trigger("chosen:updated");
+
+    });
+}

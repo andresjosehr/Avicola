@@ -1,6 +1,12 @@
 
 
-window.EditarCliente=(Datos, departamento, provincia, distrito, idForm)=>{
+
+
+
+
+
+
+window.EditarContacto=(Datos, departamento, provincia, distrito, idForm)=>{
 
 	DatosEdit=JSON.parse(Datos);
 
@@ -26,16 +32,16 @@ window.EditarCliente=(Datos, departamento, provincia, distrito, idForm)=>{
 
 	 $("#"+idForm+" #provincia").empty();
          for(key in window.Ubigeo[departamento]){
-            $("#"+idForm+" #provincia").append("<option value='"+key+"'>"+key.replace(/_/g, " ")+"</option>");
+            $("#"+idForm+" #provincia").append("<option>"+key+"</option>");
        	}
 
        	 $("#"+idForm+" #distrito").empty();
          for(key in window.Ubigeo[departamento][provincia]){
-            $("#"+idForm+" #distrito").append("<option value='"+key+"'>"+key.replace(/_/g, " ")+"</option>");
+            $("#"+idForm+" #distrito").append("<option>"+key+"</option>");
        	}
 
 
-       	$("#"+idForm+" #provincia").val(provincia);
+       	$("#"+idForm+" #provincia").val(departamento);
        	$("#"+idForm+" #distrito").val(distrito);
 
 
@@ -62,10 +68,14 @@ window.EditarCliente=(Datos, departamento, provincia, distrito, idForm)=>{
 
 	}
 
+	$("#"+idForm+" #id_cliente").val(Datos.id_cliente)
+	$("#"+idForm+" #id_proveedor").val(Datos.id_proveedor)
 
 
-	$('#'+idForm+' #departamento, #'+idForm+' #provincia, #'+idForm+' #distrito').trigger("chosen:updated");
-	$('#editarCliente').modal('toggle')
+
+
+	$('#'+idForm+' #departamento, #'+idForm+' #provincia, #'+idForm+' #distrito, #'+idForm+' #id_cliente, #'+idForm+' #id_proveedor').trigger("chosen:updated");
+	$('#editarContacto').modal('toggle')
 
 
 }

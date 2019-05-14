@@ -1,12 +1,16 @@
-
-<div id="editarCliente" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="contenedor">
+   <button onclick="$('#crearContacto').modal('toggle')" class="botonF1">
+   <span>+</span>
+   </button>
+</div>
+<div id="crearContacto" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
-            <h2>Editar Cliente</h2>
+            <h2>Crear Contactoc</h2>
          </div>
          <div class="modal-body">
-            <form id="editarClienteForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
+            <form id="crearContactoForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
                <div class="row">
                   <div class="col-md-6">
                      <div class="form-group">
@@ -32,7 +36,6 @@
                      <div class="form-group">
                         <small class='form_description'>Nombre o Razón social</small>
                            <input type="text" id="nombre" required="required" class="form-control col-md-7 col-xs-12">
-                           <input type="hidden" id="id">
                      </div>
                   </div>
                   <div class="col-md-6">
@@ -111,10 +114,30 @@
                               </select>
                      </div>
                   </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <small class='form_description'>Cliente asociado</small>
+                           <select id="id_cliente" class="form-control" required="">
+                              @foreach ($Clientes as $Cliente)
+                                <option value="{{$Cliente->id}}">{{$Cliente->nombre}}</option>
+                              @endforeach
+                          </select>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <small class='form_description'>Proveedor asociado</small>
+                           <select id="id_proveedor" class="form-control" required="">
+                              @foreach ($Proveedores as $Proveedor)
+                                <option value="{{$Proveedor->id}}">{{$Proveedor->nombre}}</option>
+                              @endforeach
+                          </select>
+                     </div>
+                  </div>
                   <div style="display: none" class="ln_solid"></div>
                   <div class="form-group">
                      <div class="col-md-12" style="padding-top: 15px;">
-                        <button {{-- type="submit" --}} onclick="ValidarGeneral('editarClienteForm', 'update', 'clientes')" style="width: 100%" class="btn btn-success btn-modal btn_avicola">Guardar</button>
+                        <button {{-- type="submit" --}} onclick="ValidarGeneral('crearContactoForm', 'crear', 'contactos')" style="width: 100%" class="btn btn-success btn-modal btn_avicola">Guardar</button>
                         <div align="center">
                            <div class="loading_avicola" style="display:none;width: 35px;height: 35px;"></div>
                         </div>
@@ -140,25 +163,27 @@
 </style>
 <script>
 	$(document).ready(function(){
-      $("#editarClienteForm #pais, #editarClienteForm #provincia, #editarClienteForm #departamento, #editarClienteForm #distrito, #editarClienteForm #tipo_persona, #editarClienteForm #tipo_documento").chosen();
-      validateUbigeoEditar("editarClienteForm");
-      validateTipoDocumentoEditar();
-   });
+      $("#crearContactoForm #pais, #crearContactoForm #provincia, #crearContactoForm #departamento, #crearContactoForm #distrito, #crearContactoForm #tipo_persona, #crearContactoForm #tipo_documento, #tipo_persona, #crearContactoForm #id_cliente, #tipo_persona, #crearContactoForm #id_proveedor").chosen();
+      validateUbigeoCont('crearContactoForm');
+      validateTipoDocumentoCont();
 
-      $("#editarClienteForm #provincia").empty();
+      $("#crearContactoForm #provincia").empty();
          for(key in window.Ubigeo["AMAZONAS"]){
-            $("#editarClienteForm #provincia").append("<option value='"+key+"'>"+key.replace(/_/g, " ")+"</option>");
+            $("#crearContactoForm #provincia").append("<option>"+key.replace(/_/g, " ")+"</option>");
          }
 
-         $('#editarClienteForm #departamento, #editarClienteForm #provincia, #editarClienteForm #distrito').trigger("chosen:updated");
+
+
+         $('#crearContactoForm #departamento, #crearContactoForm #provincia, #crearContactoForm #distrito').trigger("chosen:updated");
+   	});
 
 
 
-      $("#editarClienteForm #distrito").empty();
+      $("#crearContactoForm #distrito").empty();
 
-         $("#editarClienteForm #distrito").append("<option>"+"AMAZONAS"+"</option>");
+         $("#crearContactoForm #distrito").append("<option>"+"AMAZONAS"+"</option>");
 
-         $('#editarClienteForm #departamento, #editarClienteForm #provincia, #editarClienteForm #distrito').trigger("chosen:updated");
+         $('#crearContactoForm #departamento, #crearContactoForm #provincia, #crearContactoForm #distrito').trigger("chosen:updated");
 
 
 </script>
