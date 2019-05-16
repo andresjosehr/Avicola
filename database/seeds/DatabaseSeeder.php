@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     	DB::table('tipo_documento')->delete();
     	DB::table('tipo_persona')->delete();
     	DB::table('paises')->delete();
+    	DB::table('usuarios')->delete();
 
 
     	DB::table("usuarios")->insert( [
