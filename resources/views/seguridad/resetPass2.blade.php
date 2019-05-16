@@ -16,8 +16,10 @@
                 <input type="password" class="form-control" id="password_2" data-parsley-equalto="#password" placeholder="Repite tu contraseña" required="">
               </div>
               <div>
-                <button onclick="ValidarGeneral('resetPassForm2', 'resetPass2', 'seguridad')" class="btn btn-default submit btn-block">Ingresar</button>
-                <div class="loading_avicola" style="display:none;width: 35px;height: 35px;"></div>
+                <button onclick="ValidarGeneral('resetPassForm2', 'resetPass2', 'seguridad')" class="btn btn-default submit btn-block btn_avicola">Ingresar</button>
+                <div align="center">
+                  <div class="loading_avicola" style="display:none;width: 35px;height: 35px;"></div>
+                </div>
                 <a href="resetPass">Regresar</a>
               </div>
               <div class="clearfix"></div>

@@ -12,8 +12,10 @@
               <div>
                 <input type="text" class="form-control" id="email" data-parsley-type="email" placeholder="Ingresa tu direccion de correo electronico" required="">
               </div>              <div>
-                <button onclick="ValidarGeneral('resetPassForm', 'resetPass', 'seguridad')" class="btn btn-default submit btn-block">Ingresar</button>
-                <div class="loading_avicola" style="display:none;width: 35px;height: 35px;"></div>
+                <button onclick="ValidarGeneral('resetPassForm', 'resetPass', 'seguridad')" class="btn btn-default submit btn-block btn_avicola">Ingresar</button>
+                <div align="center">
+                  <div class="loading_avicola" style="display:none;width: 35px;height: 35px;"></div>
+                </div>
                 <a href="resetPass">Regresar</a>
               </div>
               <div class="clearfix"></div>
