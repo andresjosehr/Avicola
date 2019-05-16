@@ -49,7 +49,15 @@ class ProveedoresController extends Controller
      */
     public function store(Request $request)
     {
-        $Ubigeo = Ubigeo::where("distrito", "like", $request->distrito)->first();
+        $no_permitidas= array (" ", "ñ", "Ñ","á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
+        $permitidas= array ("_", "n", "N","a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
+
+        $request->merge(["departamento" =>  str_replace($no_permitidas, $permitidas, $request->departamento)]);
+        $request->merge(["provincia" =>  str_replace($no_permitidas, $permitidas, $request->provincia)]);
+        $request->merge(["distrito" =>  str_replace($no_permitidas, $permitidas, $request->distrito)]);
+
+        $Ubigeo = Ubigeo::where("distrito", "like", $request->distrito)->where("provincia", "like", $request->provincia)->where("distrito", "like", $request->distrito)->first();
+        
         $request->merge($request->except("departamento", "provincia", "distrito"));
         $request->merge(["codigo_ubigeo" => $Ubigeo->id_ubigeo]);
 
@@ -107,12 +115,14 @@ class ProveedoresController extends Controller
          $request->merge(["codigo_ubigeo" => NULL]);
         } else{
 
-            $no_permitidas= array (" ", "ñ", "Ñ","á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
+        $no_permitidas= array (" ", "ñ", "Ñ","á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
         $permitidas= array ("_", "n", "N","a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
 
+        $request->merge(["departamento" =>  str_replace($no_permitidas, $permitidas, $request->departamento)]);
+        $request->merge(["provincia" =>  str_replace($no_permitidas, $permitidas, $request->provincia)]);
         $request->merge(["distrito" =>  str_replace($no_permitidas, $permitidas, $request->distrito)]);
 
-        $Ubigeo = Ubigeo::where("distrito", "like", $request->distrito)->first();
+        $Ubigeo = Ubigeo::where("distrito", "like", $request->distrito)->where("provincia", "like", $request->provincia)->where("distrito", "like", $request->distrito)->first();
         $request->merge($request->except("departamento", "provincia", "distrito"));
         $request->merge(["codigo_ubigeo" => $Ubigeo->id_ubigeo]);
 

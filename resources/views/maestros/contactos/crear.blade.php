@@ -65,7 +65,7 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <small class='form_description'>Direccion 2</small>
-                           <input type="text" id="direccion_2" required="required" class="form-control col-md-7 col-xs-12">
+                           <input type="text" required="required" class="form-control col-md-7 col-xs-12">
                      </div>
                   </div>
                   <div class="col-md-12">
@@ -137,7 +137,7 @@
                   <div style="display: none" class="ln_solid"></div>
                   <div class="form-group">
                      <div class="col-md-12" style="padding-top: 15px;">
-                        <button {{-- type="submit" --}} onclick="ValidarGeneral('crearContactoForm', 'crear', 'contactos')" style="width: 100%" class="btn btn-success btn-modal btn_avicola">Guardar</button>
+                        <button onclick="ValidarGeneral('crearContactoForm', 'crear', 'contactos')" style="width: 100%" class="btn btn-success btn-modal btn_avicola">Guardar</button>
                         <div align="center">
                            <div class="loading_avicola" style="display:none;width: 35px;height: 35px;"></div>
                         </div>

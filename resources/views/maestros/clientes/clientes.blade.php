@@ -5,7 +5,7 @@
             <h2>Clientes <small>Consulta de información</small></h2>
             <hr class="x_title">
          <div class="x_content">
-            <p>Para crear un mantenedor puedes clikear el boton inferior derecho</p>
+            <p>Para crear un cliente puedes clikear el boton inferior derecho</p>
             <div id="listUpdate" style='overflow-x: auto;'>
                @include("maestros.clientes.lista")
             </div>

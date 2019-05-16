@@ -7,7 +7,7 @@
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
-            <h2>Crear Cliente</h2>
+            <h2>Crear Proveedor</h2>
          </div>
          <div class="modal-body">
             <form id="crearProveedorForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
@@ -65,7 +65,7 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <small class='form_description'>Direccion 2</small>
-                           <input type="text" id="direccion_2" required="required" class="form-control col-md-7 col-xs-12">
+                           <input type="text" id="direccion_2" class="form-control col-md-7 col-xs-12">
                      </div>
                   </div>
                   <div class="col-md-12">

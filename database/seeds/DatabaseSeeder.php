@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use Hash;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -17,6 +17,12 @@ class DatabaseSeeder extends Seeder
     	DB::table('tipo_persona')->delete();
     	DB::table('paises')->delete();
 
+
+    	DB::table("usuarios")->insert( [
+			'nombre' => "Pedro Perez",
+			'email'=>'demo@avicola.com',
+			'nombre'=> Hash::make('secret');
+			]);
 
 
     	DB::table("paises")->insert( [

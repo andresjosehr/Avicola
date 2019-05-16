@@ -6,3 +6,4 @@ require("./custom/eliminar.js");
 require("./custom/clientes.js");
 require("./custom/proveedores.js");
 require("./custom/contactos.js");
+require("./custom/seguridad.js");

@@ -62,7 +62,7 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <small class='form_description'>Direccion 2</small>
-                           <input type="text" id="direccion_2" required="required" class="form-control col-md-7 col-xs-12">
+                           <input type="text" id="direccion_2" class="form-control col-md-7 col-xs-12">
                      </div>
                   </div>
                   <div class="col-md-12">

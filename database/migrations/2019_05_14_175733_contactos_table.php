@@ -22,7 +22,7 @@ class ContactosTable extends Migration
             $table->string('apellido_paterno');
             $table->string('nombre');
             $table->string('direccion');
-            $table->string('direccion_2');
+            $table->string('direccion_2')->nullable();
             $table->string('codigo_postal');
             $table->string('codigo_ubigeo')->nullable();
             $table->string('pais');

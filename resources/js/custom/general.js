@@ -1,6 +1,6 @@
 
 
-window.ValidarGeneral= (id, tipo, modulo) => {
+window.ValidarGeneral = (id, tipo, modulo) => {
 
         var execute=false;
         var i=0;
@@ -24,6 +24,31 @@ window.ValidarGeneral= (id, tipo, modulo) => {
                         i=1;
                     }
                 }
+
+                if (tipo=="login") {
+                    if (execute==false && i==0) {
+                        loginAvi(id, modulo);
+                        execute=true;
+                        i=1;
+                    }
+                }
+
+                if (tipo=="resetPass") {
+                    if (execute==false && i==0) {
+                        resetAvi(id, modulo);
+                        execute=true;
+                        i=1;
+                    }
+                }
+
+                if (tipo=="resetPass2") {
+                    if (execute==false && i==0) {
+                        resetAvi2(id, modulo);
+                        execute=true;
+                        i=1;
+                    }
+                }
+
             }
         });
 }
@@ -242,13 +267,13 @@ window.validateUbigeoProvee=() => {
 
         $("#crearProveedorForm #provincia").empty();
         for(key in window.Ubigeo[$("#crearProveedorForm #departamento").val()]){
-            $("#crearProveedorForm #provincia").append("<option>"+key+"</option>");
+            $("#crearProveedorForm #provincia").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
         $("#crearProveedorForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#crearProveedorForm #departamento").val()][$("#crearProveedorForm #provincia").val()]){
-            $("#crearProveedorForm #distrito").append("<option>"+key+"</option>");
+            $("#crearProveedorForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#crearProveedorForm #departamento, #crearProveedorForm #provincia, #crearProveedorForm #distrito').trigger("chosen:updated");
@@ -262,7 +287,7 @@ window.validateUbigeoProvee=() => {
         $("#crearProveedorForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#crearProveedorForm #departamento").val()][$("#crearProveedorForm #provincia").val()]){
-            $("#crearProveedorForm #distrito").append("<option>"+key+"</option>");
+            $("#crearProveedorForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#crearProveedorForm #departamento, #crearProveedorForm #provincia, #crearProveedorForm #distrito').trigger("chosen:updated");
@@ -318,13 +343,13 @@ window.validateUbigeoEditarProvee=() => {
 
         $("#editarProveedorForm #provincia").empty();
         for(key in window.Ubigeo[$("#editarProveedorForm #departamento").val()]){
-            $("#editarProveedorForm #provincia").append("<option>"+key+"</option>");
+            $("#editarProveedorForm #provincia").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
         $("#editarProveedorForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#editarProveedorForm #departamento").val()][$("#editarProveedorForm #provincia").val()]){
-            $("#editarProveedorForm #distrito").append("<option>"+key+"</option>");
+            $("#editarProveedorForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#editarProveedorForm #departamento, #editarProveedorForm #provincia, #editarProveedorForm #distrito').trigger("chosen:updated");
@@ -338,7 +363,7 @@ window.validateUbigeoEditarProvee=() => {
         $("#editarProveedorForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#editarProveedorForm #departamento").val()][$("#editarProveedorForm #provincia").val()]){
-            $("#editarProveedorForm #distrito").append("<option>"+key+"</option>");
+            $("#editarProveedorForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#editarProveedorForm #departamento, #editarProveedorForm #provincia, #editarProveedorForm #distrito').trigger("chosen:updated");
@@ -409,13 +434,13 @@ window.validateUbigeoCont=() => {
 
         $("#crearContactoForm #provincia").empty();
         for(key in window.Ubigeo[$("#crearContactoForm #departamento").val()]){
-            $("#crearContactoForm #provincia").append("<option>"+key+"</option>");
+            $("#crearContactoForm #provincia").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
         $("#crearContactoForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#crearContactoForm #departamento").val()][$("#crearContactoForm #provincia").val()]){
-            $("#crearContactoForm #distrito").append("<option>"+key+"</option>");
+            $("#crearContactoForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#crearContactoForm #departamento, #crearContactoForm #provincia, #crearContactoForm #distrito').trigger("chosen:updated");
@@ -429,7 +454,7 @@ window.validateUbigeoCont=() => {
         $("#crearContactoForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#crearContactoForm #departamento").val()][$("#crearContactoForm #provincia").val()]){
-            $("#crearContactoForm #distrito").append("<option>"+key+"</option>");
+            $("#crearContactoForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#crearContactoForm #departamento, #crearContactoForm #provincia, #crearContactoForm #distrito').trigger("chosen:updated");
@@ -485,13 +510,13 @@ window.validateUbigeoEditarCont=() => {
 
         $("#editarContactoForm #provincia").empty();
         for(key in window.Ubigeo[$("#editarContactoForm #departamento").val()]){
-            $("#editarContactoForm #provincia").append("<option>"+key+"</option>");
+            $("#editarContactoForm #provincia").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
         $("#editarContactoForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#editarContactoForm #departamento").val()][$("#editarContactoForm #provincia").val()]){
-            $("#editarContactoForm #distrito").append("<option>"+key+"</option>");
+            $("#editarContactoForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#editarContactoForm #departamento, #editarContactoForm #provincia, #editarContactoForm #distrito').trigger("chosen:updated");
@@ -505,7 +530,7 @@ window.validateUbigeoEditarCont=() => {
         $("#editarContactoForm #distrito").empty();
 
         for(key in window.Ubigeo[$("#editarContactoForm #departamento").val()][$("#editarContactoForm #provincia").val()]){
-            $("#editarContactoForm #distrito").append("<option>"+key+"</option>");
+            $("#editarContactoForm #distrito").append("<option>"+key.replace(/_/g, " ")+"</option>");
         }
 
             $('#editarContactoForm #departamento, #editarContactoForm #provincia, #editarContactoForm #distrito').trigger("chosen:updated");

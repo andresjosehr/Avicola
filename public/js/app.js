@@ -109,6 +109,8 @@ __webpack_require__(/*! ./custom/proveedores.js */ "./resources/js/custom/provee
 
 __webpack_require__(/*! ./custom/contactos.js */ "./resources/js/custom/contactos.js");
 
+__webpack_require__(/*! ./custom/seguridad.js */ "./resources/js/custom/seguridad.js");
+
 /***/ }),
 
 /***/ "./resources/js/custom/clientes.js":
@@ -244,6 +246,7 @@ window.crearElemento = function (idForm, modulo) {
   $(".btn_avicola").hide("fast", function () {
     $(".loading_avicola").show("fast");
   });
+  $(".input-error").remove();
   $.ajax({
     type: 'POST',
     url: url + "/" + modulo,
@@ -252,13 +255,14 @@ window.crearElemento = function (idForm, modulo) {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
     success: function success(result) {
+      $(".loading_avicola").hide("fast", function () {
+        $(".btn_avicola").show("fast");
+      });
+
       if (result == "Exito") {
         swal("¡Listo!", "Registro realizado de manera exitosa", "success");
         $("#" + idForm + " input").map(function (key, input) {
           $(this).val("");
-        });
-        $(".loading_avicola").hide("fast", function () {
-          $(".btn_avicola").show("fast");
         });
         $.ajaxSetup({
           headers: {
@@ -268,6 +272,12 @@ window.crearElemento = function (idForm, modulo) {
         $("#listUpdate").load(url + "/" + modulo + "/listUpdate", {
           Data: "Ex"
         });
+      } else {
+        for (key in result) {
+          $("#" + idForm + " #" + key).after().after("<p class='input-error' style='color:red'>" + result[key][0] + "</p>");
+        }
+
+        console.log(result);
       }
     }
   });
@@ -357,6 +367,30 @@ window.ValidarGeneral = function (id, tipo, modulo) {
       if (tipo == "update") {
         if (execute == false && i == 0) {
           updateElemento(id, modulo);
+          execute = true;
+          i = 1;
+        }
+      }
+
+      if (tipo == "login") {
+        if (execute == false && i == 0) {
+          loginAvi(id, modulo);
+          execute = true;
+          i = 1;
+        }
+      }
+
+      if (tipo == "resetPass") {
+        if (execute == false && i == 0) {
+          resetAvi(id, modulo);
+          execute = true;
+          i = 1;
+        }
+      }
+
+      if (tipo == "resetPass2") {
+        if (execute == false && i == 0) {
+          resetAvi2(id, modulo);
           execute = true;
           i = 1;
         }
@@ -502,13 +536,13 @@ window.validateUbigeoProvee = function () {
     $("#crearProveedorForm #provincia").empty();
 
     for (key in window.Ubigeo[$("#crearProveedorForm #departamento").val()]) {
-      $("#crearProveedorForm #provincia").append("<option>" + key + "</option>");
+      $("#crearProveedorForm #provincia").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $("#crearProveedorForm #distrito").empty();
 
     for (key in window.Ubigeo[$("#crearProveedorForm #departamento").val()][$("#crearProveedorForm #provincia").val()]) {
-      $("#crearProveedorForm #distrito").append("<option>" + key + "</option>");
+      $("#crearProveedorForm #distrito").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $('#crearProveedorForm #departamento, #crearProveedorForm #provincia, #crearProveedorForm #distrito').trigger("chosen:updated");
@@ -517,7 +551,7 @@ window.validateUbigeoProvee = function () {
     $("#crearProveedorForm #distrito").empty();
 
     for (key in window.Ubigeo[$("#crearProveedorForm #departamento").val()][$("#crearProveedorForm #provincia").val()]) {
-      $("#crearProveedorForm #distrito").append("<option>" + key + "</option>");
+      $("#crearProveedorForm #distrito").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $('#crearProveedorForm #departamento, #crearProveedorForm #provincia, #crearProveedorForm #distrito').trigger("chosen:updated");
@@ -555,13 +589,13 @@ window.validateUbigeoEditarProvee = function () {
     $("#editarProveedorForm #provincia").empty();
 
     for (key in window.Ubigeo[$("#editarProveedorForm #departamento").val()]) {
-      $("#editarProveedorForm #provincia").append("<option>" + key + "</option>");
+      $("#editarProveedorForm #provincia").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $("#editarProveedorForm #distrito").empty();
 
     for (key in window.Ubigeo[$("#editarProveedorForm #departamento").val()][$("#editarProveedorForm #provincia").val()]) {
-      $("#editarProveedorForm #distrito").append("<option>" + key + "</option>");
+      $("#editarProveedorForm #distrito").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $('#editarProveedorForm #departamento, #editarProveedorForm #provincia, #editarProveedorForm #distrito').trigger("chosen:updated");
@@ -570,7 +604,7 @@ window.validateUbigeoEditarProvee = function () {
     $("#editarProveedorForm #distrito").empty();
 
     for (key in window.Ubigeo[$("#editarProveedorForm #departamento").val()][$("#editarProveedorForm #provincia").val()]) {
-      $("#editarProveedorForm #distrito").append("<option>" + key + "</option>");
+      $("#editarProveedorForm #distrito").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $('#editarProveedorForm #departamento, #editarProveedorForm #provincia, #editarProveedorForm #distrito').trigger("chosen:updated");
@@ -608,13 +642,13 @@ window.validateUbigeoCont = function () {
     $("#crearContactoForm #provincia").empty();
 
     for (key in window.Ubigeo[$("#crearContactoForm #departamento").val()]) {
-      $("#crearContactoForm #provincia").append("<option>" + key + "</option>");
+      $("#crearContactoForm #provincia").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $("#crearContactoForm #distrito").empty();
 
     for (key in window.Ubigeo[$("#crearContactoForm #departamento").val()][$("#crearContactoForm #provincia").val()]) {
-      $("#crearContactoForm #distrito").append("<option>" + key + "</option>");
+      $("#crearContactoForm #distrito").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $('#crearContactoForm #departamento, #crearContactoForm #provincia, #crearContactoForm #distrito').trigger("chosen:updated");
@@ -623,7 +657,7 @@ window.validateUbigeoCont = function () {
     $("#crearContactoForm #distrito").empty();
 
     for (key in window.Ubigeo[$("#crearContactoForm #departamento").val()][$("#crearContactoForm #provincia").val()]) {
-      $("#crearContactoForm #distrito").append("<option>" + key + "</option>");
+      $("#crearContactoForm #distrito").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $('#crearContactoForm #departamento, #crearContactoForm #provincia, #crearContactoForm #distrito').trigger("chosen:updated");
@@ -661,13 +695,13 @@ window.validateUbigeoEditarCont = function () {
     $("#editarContactoForm #provincia").empty();
 
     for (key in window.Ubigeo[$("#editarContactoForm #departamento").val()]) {
-      $("#editarContactoForm #provincia").append("<option>" + key + "</option>");
+      $("#editarContactoForm #provincia").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $("#editarContactoForm #distrito").empty();
 
     for (key in window.Ubigeo[$("#editarContactoForm #departamento").val()][$("#editarContactoForm #provincia").val()]) {
-      $("#editarContactoForm #distrito").append("<option>" + key + "</option>");
+      $("#editarContactoForm #distrito").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $('#editarContactoForm #departamento, #editarContactoForm #provincia, #editarContactoForm #distrito').trigger("chosen:updated");
@@ -676,7 +710,7 @@ window.validateUbigeoEditarCont = function () {
     $("#editarContactoForm #distrito").empty();
 
     for (key in window.Ubigeo[$("#editarContactoForm #departamento").val()][$("#editarContactoForm #provincia").val()]) {
-      $("#editarContactoForm #distrito").append("<option>" + key + "</option>");
+      $("#editarContactoForm #distrito").append("<option>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $('#editarContactoForm #departamento, #editarContactoForm #provincia, #editarContactoForm #distrito').trigger("chosen:updated");
@@ -711,13 +745,13 @@ window.EditarProveedor = function (Datos, departamento, provincia, distrito, idF
     $("#" + idForm + " #provincia").empty();
 
     for (key in window.Ubigeo[departamento]) {
-      $("#" + idForm + " #provincia").append("<option>" + key + "</option>");
+      $("#" + idForm + " #provincia").append("<option value='" + key + "'>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $("#" + idForm + " #distrito").empty();
 
     for (key in window.Ubigeo[departamento][provincia]) {
-      $("#" + idForm + " #distrito").append("<option>" + key + "</option>");
+      $("#" + idForm + " #distrito").append("<option value='" + key + "'>" + key.replace(/_/g, " ") + "</option>");
     }
 
     $("#" + idForm + " #provincia").val(departamento);
@@ -739,6 +773,123 @@ window.EditarProveedor = function (Datos, departamento, provincia, distrito, idF
 
   $('#' + idForm + ' #departamento, #' + idForm + ' #provincia, #' + idForm + ' #distrito').trigger("chosen:updated");
   $('#editarProveedor').modal('toggle');
+};
+
+/***/ }),
+
+/***/ "./resources/js/custom/seguridad.js":
+/*!******************************************!*\
+  !*** ./resources/js/custom/seguridad.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.loginAvi = function (idForm, modulo) {
+  var Data = {};
+  $("#" + idForm + " input").map(function (key, input) {
+    return Data[input.id] = input.value;
+  });
+  $(".btn_avicola").hide("fast", function () {
+    $(".loading_avicola").show("fast");
+  });
+  $(".input-error").remove();
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $.ajax({
+    type: 'POST',
+    url: url + "/login",
+    data: Data,
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success(result) {
+      $(".loading_avicola").hide("fast", function () {
+        $(".btn_avicola").show("fast");
+      });
+
+      if (result == "Exito") {
+        swal("¡Listo!", "Esta siendo redirigido al panel de control", "success");
+        window.location.href = url;
+      } else {
+        swal("Error", "Credenciales Invalidas", "error");
+      }
+    }
+  });
+};
+
+window.resetAvi = function (idForm, modulo) {
+  var Data = {};
+  $("#" + idForm + " input").map(function (key, input) {
+    return Data[input.id] = input.value;
+  });
+  $(".btn_avicola").hide("fast", function () {
+    $(".loading_avicola").show("fast");
+  });
+  $(".input-error").remove();
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $.ajax({
+    type: 'POST',
+    url: url + "/resetPass",
+    data: Data,
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success(result) {
+      $(".loading_avicola").hide("fast", function () {
+        $(".btn_avicola").show("fast");
+      });
+
+      if (result == "Exito") {
+        swal("¡Listo!", "Hemos enviado un correo a tu email para continuar con el preceso de cambio de contraseña", "success");
+      } else {
+        swal("Error", "Este email no concuerda con nuestros registros", "error");
+      }
+    }
+  });
+};
+
+window.resetAvi2 = function (idForm, modulo) {
+  var Data = {};
+  $("#" + idForm + " input").map(function (key, input) {
+    return Data[input.id] = input.value;
+  });
+  $(".btn_avicola").hide("fast", function () {
+    $(".loading_avicola").show("fast");
+  });
+  $(".input-error").remove();
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  var parts = window.location.pathname.split('/');
+  var urlPath = parts.pop() || parts.pop(); // handle potential trailing slash
+
+  $.ajax({
+    type: 'POST',
+    url: url + "/resetPass2/" + urlPath,
+    data: Data,
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success(result) {
+      $(".loading_avicola").hide("fast", function () {
+        $(".btn_avicola").show("fast");
+      });
+
+      if (result == "Exito") {
+        swal("¡Listo!", "Contraseña actualizada exitosamente", "success");
+        window.location.href = url;
+      } else {}
+    }
+  });
 };
 
 /***/ }),

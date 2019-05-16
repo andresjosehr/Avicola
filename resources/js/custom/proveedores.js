@@ -32,12 +32,12 @@ window.EditarProveedor=(Datos, departamento, provincia, distrito, idForm)=>{
 
 	 $("#"+idForm+" #provincia").empty();
          for(key in window.Ubigeo[departamento]){
-            $("#"+idForm+" #provincia").append("<option>"+key+"</option>");
+            $("#"+idForm+" #provincia").append("<option value='"+key+"'>"+key.replace(/_/g, " ")+"</option>");
        	}
 
        	 $("#"+idForm+" #distrito").empty();
          for(key in window.Ubigeo[departamento][provincia]){
-            $("#"+idForm+" #distrito").append("<option>"+key+"</option>");
+            $("#"+idForm+" #distrito").append("<option value='"+key+"'>"+key.replace(/_/g, " ")+"</option>");
        	}
 
 
