@@ -69,3 +69,6 @@ Route::get('/', function () {
 
 });
 
+
+	Route::get('prueba', "PruebaController@index");
+

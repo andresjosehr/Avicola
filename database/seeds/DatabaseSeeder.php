@@ -20822,5 +20822,8 @@ class DatabaseSeeder extends Seeder
 				DB::table('tipo_persona')->insert( [
 				'tipo'=>'Persona Juridica'
 				]);
+
+
+				DB::select("UPDATE sys_seb_ubigeo SET id_ubigeo = Concat('0', id_ubigeo)  WHERE id_ubigeo<100000");
     }
 }
