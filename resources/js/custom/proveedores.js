@@ -41,7 +41,7 @@ window.EditarProveedor=(Datos, departamento, provincia, distrito, idForm)=>{
        	}
 
 
-       	$("#"+idForm+" #provincia").val(departamento);
+       	$("#"+idForm+" #provincia").val(provincia);
        	$("#"+idForm+" #distrito").val(distrito);
 
 

@@ -7,7 +7,7 @@
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
-            <h2>Crear Contactoc</h2>
+            <h2>Crear Contacto</h2>
          </div>
          <div class="modal-body">
             <form id="crearContactoForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
@@ -117,7 +117,7 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <small class='form_description'>Cliente asociado</small>
-                           <select id="id_cliente" class="form-control" required="">
+                           <select id="id_cliente" class="form-control">
                               @foreach ($Clientes as $Cliente)
                                 <option value="{{$Cliente->id}}">{{$Cliente->nombre}}</option>
                               @endforeach
@@ -127,7 +127,7 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <small class='form_description'>Proveedor asociado</small>
-                           <select id="id_proveedor" class="form-control" required="">
+                           <select id="id_proveedor" class="form-control">
                               @foreach ($Proveedores as $Proveedor)
                                 <option value="{{$Proveedor->id}}">{{$Proveedor->nombre}}</option>
                               @endforeach
@@ -165,7 +165,23 @@
 	$(document).ready(function(){
       $("#crearContactoForm #pais, #crearContactoForm #provincia, #crearContactoForm #departamento, #crearContactoForm #distrito, #crearContactoForm #tipo_persona, #crearContactoForm #tipo_documento, #tipo_persona, #crearContactoForm #id_cliente, #tipo_persona, #crearContactoForm #id_proveedor").chosen();
       validateUbigeoCont('crearContactoForm');
-      validateTipoDocumentoCont();
+
+
+      $("#crearContactoForm #id_cliente").change((e) => {
+      if (this.value!="") {
+         $('#crearContactoForm #id_proveedor').val('').trigger('chosen:updated');
+      }
+    });
+
+
+    $("#crearContactoForm #id_proveedor").change((e) => {
+      if (this.value!="") {
+         $('#crearContactoForm #id_cliente').val('').trigger('chosen:updated');
+      }
+    });
+
+    $('#crearContactoForm #id_proveedor').val('').trigger('chosen:updated');
+
 
       $("#crearContactoForm #provincia").empty();
          for(key in window.Ubigeo["AMAZONAS"]){

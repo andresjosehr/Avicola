@@ -17,6 +17,12 @@ class DatabaseSeeder extends Seeder
     	DB::table('paises')->delete();
     	DB::table('usuarios')->delete();
 
+    	DB::select("ALTER TABLE sys_seb_ubigeo AUTO_INCREMENT = 1;");
+        DB::select("ALTER TABLE sys_seb_tipo_documento AUTO_INCREMENT = 1;");
+        DB::select("ALTER TABLE sys_seb_tipo_persona AUTO_INCREMENT = 1;");
+        DB::select("ALTER TABLE sys_seb_paises AUTO_INCREMENT = 1;");
+        DB::select("ALTER TABLE sys_seb_usuarios AUTO_INCREMENT = 1;");
+
 
     	DB::table("usuarios")->insert( [
 			'nombre' => "Pedro Perez",

@@ -36,9 +36,9 @@
                     <td>{{$Contacto->codigo}}</td>
                     <td>{{$Contacto->pais}}</td>
                     <td>{{$Contacto->direccion}}</td>
-                    <td>{{$Contacto->cliente["nombre"]}}</td>
-                    <td>{{$Contacto->proveedor["nombre"]}}</td>
-                    <td>@if($Contacto->codigo_ubigeo=="") No aplica @else 0{{$Contacto->codigo_ubigeo}} @endif </td>
+                    <td>@if($Contacto->cliente["nombre"]=="") No aplica @else {{$Contacto->cliente["nombre"]}} @endif </td>
+                    <td>@if($Contacto->proveedor["nombre"]=="") No aplica @else {{$Contacto->proveedor["nombre"]}} @endif </td>
+                    <td>@if($Contacto->codigo_ubigeo=="") No aplica @else {{$Contacto->codigo_ubigeo}} @endif </td>
                     <td style="display: flex;">
                         <a onclick="EditarContacto('{{$Contacto}}', '{{str_replace($no_permitidas, $permitidas ,$Contacto->ubigeo["departamento"])}}', '{{str_replace($no_permitidas, $permitidas, $Contacto->ubigeo["provincia"])}}', '{{str_replace($no_permitidas, $permitidas ,$Contacto->ubigeo["distrito"])}}', 'editarContactoForm')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
                         <a onclick="EliminarElemento('{{$Contacto->id}}', 'contactos')" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i> Eliminar </a>
