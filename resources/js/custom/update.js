@@ -1,6 +1,9 @@
 
 window.updateElemento=(idForm, modulo)=>{
 
+
+	$(".input-error").remove();
+
 	var Data={};
 	$("#"+idForm +" input,#"+idForm +" select").map((key, input) => Data[input.id]=input.value );
 
@@ -31,6 +34,11 @@ window.updateElemento=(idForm, modulo)=>{
 				    });
 
 		    		$("#listUpdate").load(url+"/"+modulo+"/listUpdate",{Data: "Ex"});
+		    	}else {
+		    		for (key in result) {
+		    			$("#"+idForm+" #"+key).after().after("<p class='input-error' style='color:red'>"+result[key][0]+"</p>")
+		    		}
+		    		console.log(result)
 		    	}
 
 			}

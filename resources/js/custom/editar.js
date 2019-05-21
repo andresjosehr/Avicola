@@ -6,14 +6,17 @@ window.editarElemento=(Datos, idForm)=>{
 
 	Datos=JSON.parse(Datos);
 
+	if (idForm=="editarChofer") if (Datos.cargo!=undefined) Datos.cargo= Datos.cargo.id;
+	
+
 	$("#"+idForm+" input:not(.chosen-search-input)").map((key, input)=>{ 
 		input.value=Datos[input.id] 
 	});
 
-	// $("#"+idForm+" select").map((key, input)=>{ 
-	// 	input.value=Datos[input.id] ;
-	// 	$('#'+idForm+' #'+input.id).trigger("chosen:updated");
-	// });
+	$("#"+idForm+" select:not(.chosen-search-input)").map((key, input)=>{ 
+		input.value=Datos[input.id];
+		$('#'+idForm+' #'+input.id).trigger("chosen:updated");
+	});
 
-	$('#editarCliente').modal('toggle')
+	$('#'+idForm).modal('toggle');
 }

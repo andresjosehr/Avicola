@@ -22,6 +22,22 @@ class DatabaseSeeder extends Seeder
         DB::select("ALTER TABLE sys_seb_tipo_persona AUTO_INCREMENT = 1;");
         DB::select("ALTER TABLE sys_seb_paises AUTO_INCREMENT = 1;");
         DB::select("ALTER TABLE sys_seb_usuarios AUTO_INCREMENT = 1;");
+        DB::select("ALTER TABLE sys_seb_cargos AUTO_INCREMENT = 1;");
+        DB::select("ALTER TABLE sys_seb_automoviles AUTO_INCREMENT = 1;");
+        DB::select("ALTER TABLE sys_seb_empleados AUTO_INCREMENT = 1;");
+
+
+        DB::table("cargos")->insert( [
+			'nombre' => "Cargo 1",
+			]);
+
+        DB::table("cargos")->insert( [
+			'nombre' => "Cargo 2",
+			]);
+
+        DB::table("cargos")->insert( [
+			'nombre' => "Cargo 3",
+			]);
 
 
     	DB::table("usuarios")->insert( [

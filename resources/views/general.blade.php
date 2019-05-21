@@ -73,9 +73,10 @@
                       <li><a href="#">Clase</a></li>
                       <li><a href="#">Productos</a></li>
                       <li><a href="#">Almacen</a></li>
-                      <li><a href="#">Choferes</a></li>
-                      <li><a href="#">Autos</a></li>
-                      <li><a href="#">Empleados</a></li>
+                      <li><a href="cargos">Cargos</a></li>
+                      <li><a href="choferes">Choferes</a></li>
+                      <li><a href="automoviles">Autos</a></li>
+                      <li><a href="empleados">Empleados</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-clone"></i> Guías <span class="fa fa-chevron-down"></span></a>

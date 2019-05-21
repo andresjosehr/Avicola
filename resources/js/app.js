@@ -7,3 +7,4 @@ require("./custom/clientes.js");
 require("./custom/proveedores.js");
 require("./custom/contactos.js");
 require("./custom/seguridad.js");
+require("./custom/empleados.js");

@@ -111,6 +111,8 @@ __webpack_require__(/*! ./custom/contactos.js */ "./resources/js/custom/contacto
 
 __webpack_require__(/*! ./custom/seguridad.js */ "./resources/js/custom/seguridad.js");
 
+__webpack_require__(/*! ./custom/empleados.js */ "./resources/js/custom/empleados.js");
+
 /***/ }),
 
 /***/ "./resources/js/custom/clientes.js":
@@ -294,14 +296,15 @@ window.crearElemento = function (idForm, modulo) {
 
 window.editarElemento = function (Datos, idForm) {
   Datos = JSON.parse(Datos);
+  if (idForm == "editarChofer") if (Datos.cargo != undefined) Datos.cargo = Datos.cargo.id;
   $("#" + idForm + " input:not(.chosen-search-input)").map(function (key, input) {
     input.value = Datos[input.id];
-  }); // $("#"+idForm+" select").map((key, input)=>{ 
-  // 	input.value=Datos[input.id] ;
-  // 	$('#'+idForm+' #'+input.id).trigger("chosen:updated");
-  // });
-
-  $('#editarCliente').modal('toggle');
+  });
+  $("#" + idForm + " select:not(.chosen-search-input)").map(function (key, input) {
+    input.value = Datos[input.id];
+    $('#' + idForm + ' #' + input.id).trigger("chosen:updated");
+  });
+  $('#' + idForm).modal('toggle');
 };
 
 /***/ }),
@@ -336,6 +339,52 @@ window.EliminarElemento = function (id, modulo) {
       });
     } else {}
   });
+};
+
+/***/ }),
+
+/***/ "./resources/js/custom/empleados.js":
+/*!******************************************!*\
+  !*** ./resources/js/custom/empleados.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.validateChofer = function (idForm) {
+  $('#' + idForm + ' #chofer').change(function () {
+    if (this.checked) {
+      $("#" + idForm + " #licencia").removeAttr("disabled");
+      $("#" + idForm + " #licencia").attr("required", "required");
+      $("#" + idForm + " #chofer").val("Si");
+    } else {
+      $("#" + idForm + " #licencia").attr("disabled", "disabled");
+      $("#" + idForm + " #licencia").removeAttr("required", "required");
+      $("#" + idForm + " #licencia").val("");
+      $("#" + idForm + " #chofer").val("No");
+    }
+  });
+};
+
+window.editarEmpleado = function (Datos, idForm) {
+  var Empleado = JSON.parse(Datos);
+
+  if (Empleado.chofer == "Si") {
+    $("#editarEmpleado #licencia").removeAttr("disabled");
+    $("#editarEmpleado #chofer").val("Si");
+    $("#editarEmpleado #chofer").prop('checked', true);
+  } else {
+    $("#editarEmpleado #licencia").attr("disabled", "disabled");
+    $("#editarEmpleado #licencia").removeAttr("required");
+    $("#editarEmpleado #licencia").val("");
+    $("#editarEmpleado #chofer").val("No");
+    $("#editarEmpleado #chofer").prop('checked', false);
+  }
+
+  if (Empleado.cargo != undefined) {
+    Empleado.cargo = Empleado.cargo.id;
+  }
+
+  editarElemento(JSON.stringify(Empleado), idForm);
 };
 
 /***/ }),
@@ -902,6 +951,7 @@ window.resetAvi2 = function (idForm, modulo) {
 /***/ (function(module, exports) {
 
 window.updateElemento = function (idForm, modulo) {
+  $(".input-error").remove();
   var Data = {};
   $("#" + idForm + " input,#" + idForm + " select").map(function (key, input) {
     return Data[input.id] = input.value;
@@ -932,6 +982,12 @@ window.updateElemento = function (idForm, modulo) {
         $("#listUpdate").load(url + "/" + modulo + "/listUpdate", {
           Data: "Ex"
         });
+      } else {
+        for (key in result) {
+          $("#" + idForm + " #" + key).after().after("<p class='input-error' style='color:red'>" + result[key][0] + "</p>");
+        }
+
+        console.log(result);
       }
     }
   });

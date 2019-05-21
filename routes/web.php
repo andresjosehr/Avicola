@@ -64,6 +64,18 @@ Route::get('/', function () {
 
 	Route::resource('usuarios', "UsuariosController");
 	Route::post('usuarios/listUpdate', "UsuariosController@listUpdate");
+
+	Route::resource('automoviles', "AutomovilesController");
+	Route::post('automoviles/listUpdate', "AutomovilesController@listUpdate");
+
+	Route::resource('empleados', "EmpleadosController");
+	Route::post('empleados/listUpdate', "EmpleadosController@listUpdate");
+
+	Route::resource('choferes', "ChoferesController");
+	Route::post('choferes/listUpdate', "ChoferesController@listUpdate");
+
+	Route::resource('cargos', "CargosController");
+	Route::post('cargos/listUpdate', "CargosController@listUpdate");
 	
 
 
