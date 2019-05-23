@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Automoviles extends Model
 {
-    protected $table = "Automoviles";
+    protected $table = "automoviles";
 
 
     public function Chofer()

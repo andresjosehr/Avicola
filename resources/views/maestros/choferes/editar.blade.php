@@ -3,7 +3,7 @@
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
-            <h2>Editar Proveedor</h2>
+            <h2>Editar Chofer</h2>
          </div>
          <div class="modal-body">
             <form id="editarChoferForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">

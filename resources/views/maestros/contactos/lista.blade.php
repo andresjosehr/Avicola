@@ -55,6 +55,8 @@
                 <th>Identificacion</th>
                 <th>Pais</th>
                 <th>Direccion</th>
+                <th>Cliente</th>
+                <th>Proveedor</th>
                 <th>Codigo Ubigeo</th>
                 <th>Acciones</th>
             </tr>

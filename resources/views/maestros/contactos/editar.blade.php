@@ -114,7 +114,7 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <small class='form_description'>Cliente asociado</small>
-                           <select id="id_cliente" class="form-control" required="">
+                           <select id="id_cliente" class="form-control" >
                               @foreach ($Clientes as $Cliente)
                                 <option value="{{$Cliente->id}}">{{$Cliente->nombre}}</option>
                               @endforeach
@@ -124,7 +124,7 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <small class='form_description'>Proveedor asociado</small>
-                           <select id="id_proveedor" class="form-control" required="">
+                           <select id="id_proveedor" class="form-control" >
                               @foreach ($Proveedores as $Proveedor)
                                 <option value="{{$Proveedor->id}}">{{$Proveedor->nombre}}</option>
                               @endforeach
@@ -163,6 +163,21 @@
       $("#editarContactoForm #pais, #editarContactoForm #provincia, #editarContactoForm #departamento, #editarContactoForm #distrito, #editarContactoForm #tipo_persona, #editarContactoForm #tipo_documento, #editarContactoForm #id_cliente, #tipo_persona, #editarContactoForm #id_proveedor").chosen();
       validateUbigeoEditarCont("editarContactoForm");
       validateTipoDocumentoEditarCont();
+
+      $("#editarContactoForm #id_cliente").change((e) => {
+        if (this.value!="") {
+           $('#crearContactoForm #id_proveedor').val('').trigger('chosen:updated');
+        }
+      });
+
+
+    $("#editarContactoForm #id_proveedor").change((e) => {
+      if (this.value!="") {
+         $('#crearContactoForm #id_cliente').val('').trigger('chosen:updated');
+      }
+    });
+
+
    });
 
       $("#editarContactoForm #provincia").empty();
