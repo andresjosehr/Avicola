@@ -19,8 +19,8 @@ window.crearElemento=(idForm, modulo) => {
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 		    success: function(result){
 		    	$(".loading_avicola").hide("fast", function(){
-						$(".btn_avicola").show("fast");
-					})
+					$(".btn_avicola").show("fast");
+				})
 
 		    	if (result=="Exito") {
 		    		swal("¡Listo!", "Registro realizado de manera exitosa", "success");
@@ -40,7 +40,6 @@ window.crearElemento=(idForm, modulo) => {
 		    		for (key in result) {
 		    			$("#"+idForm+" #"+key).after().after("<p class='input-error' style='color:red'>"+result[key][0]+"</p>")
 		    		}
-		    		console.log(result)
 		    	}
 
 			}

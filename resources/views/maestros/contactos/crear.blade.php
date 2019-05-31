@@ -168,10 +168,10 @@
 
 
       $("#crearContactoForm #id_cliente").change((e) => {
-      if (this.value!="") {
-         $('#crearContactoForm #id_proveedor').val('').trigger('chosen:updated');
-      }
-    });
+        if (this.value!="") {
+           $('#crearContactoForm #id_proveedor').val('').trigger('chosen:updated');
+        }
+      });
 
 
     $("#crearContactoForm #id_proveedor").change((e) => {

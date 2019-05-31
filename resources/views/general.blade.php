@@ -69,9 +69,9 @@
                       <li><a href="clientes">Clientes</a></li>
                       <li><a href="proveedores">Proovedores</a></li>
                       <li><a href="contactos">Contactos</a></li>
-                      <li><a href="#">Familia</a></li>
-                      <li><a href="#">Clase</a></li>
-                      <li><a href="#">Productos</a></li>
+                      <li><a href="tipo_productos">Tipo</a></li>
+                      <li><a href="categorias">Categorias</a></li>
+                      <li><a href="productos">Productos</a></li>
                       <li><a href="#">Almacen</a></li>
                       <li><a href="cargos">Cargos</a></li>
                       <li><a href="choferes">Choferes</a></li>

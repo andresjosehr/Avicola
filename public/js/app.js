@@ -278,8 +278,6 @@ window.crearElemento = function (idForm, modulo) {
         for (key in result) {
           $("#" + idForm + " #" + key).after().after("<p class='input-error' style='color:red'>" + result[key][0] + "</p>");
         }
-
-        console.log(result);
       }
     }
   });

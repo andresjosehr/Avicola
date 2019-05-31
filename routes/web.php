@@ -76,6 +76,15 @@ Route::get('/', function () {
 
 	Route::resource('cargos', "CargosController");
 	Route::post('cargos/listUpdate', "CargosController@listUpdate");
+
+	Route::resource('categorias', "CategoriasController");
+	Route::post('categorias/listUpdate', "CategoriasController@listUpdate");
+
+	Route::resource('tipo_productos', "TipoProductosController");
+	Route::post('tipo_productos/listUpdate', "TipoProductosController@listUpdate");
+
+	Route::resource('productos', "ProductosController");
+	Route::post('productos/listUpdate', "ProductosController@listUpdate");
 	
 
 
