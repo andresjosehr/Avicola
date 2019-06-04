@@ -105119,8 +105119,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function _type
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\Workana\Avicola\resources\js\template.js */"./resources/js/template.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\Workana\Avicola\resources\sass\template.scss */"./resources/sass/template.scss");
+__webpack_require__(/*! C:\xampp\htdocs\Temporal\Workana\Avicola\resources\js\template.js */"./resources/js/template.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\Temporal\Workana\Avicola\resources\sass\template.scss */"./resources/sass/template.scss");
 
 
 /***/ })

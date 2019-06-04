@@ -85,6 +85,9 @@ Route::get('/', function () {
 
 	Route::resource('productos', "ProductosController");
 	Route::post('productos/listUpdate', "ProductosController@listUpdate");
+
+	Route::resource('guias-entrada', "GuiasEntradaController");
+	Route::post('guias-entrada/listUpdate', "GuiasEntradaController@listUpdate");
 	
 
 

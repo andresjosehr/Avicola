@@ -81,6 +81,7 @@
                   </li>
                   <li><a><i class="fa fa-clone"></i> Guías <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                      <li><a href="guias-entrada">Guía de Entrada</a></li>
                       <li><a href="guia-salida">Guía Salida</a></li>
                       <li><a href="#">Guía Pedido</a></li>
                       <li><a href="#">Liquidación Venta Diaria</a></li>
