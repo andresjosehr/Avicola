@@ -7,7 +7,7 @@
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
-            <h2>Registrar Guia de Entrada</h2>
+            <h2>Registrar Guia de Pedido</h2>
          </div>
          <div class="modal-body">
             <form id="crearGuiaPedidoForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
