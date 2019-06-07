@@ -2,12 +2,12 @@
 <div class="right_col" role="main">
    <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
-            <h2>Guias de entrada <small>Consulta de información</small></h2>
+            <h2>Guias de Pedido <small>Consulta de información</small></h2>
             <hr class="x_title">
          <div class="x_content">
-            <p>Para crear una guia de entrada puedes clikear el boton inferior derecho</p>
+            <p>Para crear una guia de pedido puedes clikear el boton inferior derecho</p>
             <div id="listUpdate" style='overflow-x: auto;'>
-               @include("guias.guiasEntrada.lista")
+               @include("guias.guiasPedido.lista")
             </div>
          </div>
       </div>
@@ -15,14 +15,14 @@
 </div>
 
 
-@include("guias.guiasEntrada.crear")
+@include("guias.guiasPedido.crear")
 
 <div id="listUpdateProductos">
-   @include("guias.guiasEntrada.productos")
+   @include("guias.guiasPedido.productos")
 </div>
 
 <div id="listUpdateProductosEditar">
-   @include("guias.guiasEntrada.productosEditar")
+   @include("guias.guiasPedido.productosEditar")
 </div>
-@include("guias.guiasEntrada.editar")
+@include("guias.guiasPedido.editar")
 @include("footer")

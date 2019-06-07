@@ -5,7 +5,7 @@
                 <th>Descripcion</th>
                 <th>Descripcion corta</th>
                 <th>Tipo de producto</th>
-                <th>Proveedor</th>
+                <th>Peso</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -16,7 +16,7 @@
                     <td>{{$Producto->descripcion}}</td>
                     <td>{{$Producto->descripcion_corta}}</td>
                     <td>{{$Producto->TipoProducto["descripcion"]}}</td>
-                    <td>{{$Producto->Proveedor["nombre"]}}</td>
+                    <td>{{$Producto->peso}}</td>
                     <td style="display: flex;">
                         <a onclick="editarElemento('{{$Producto}}', 'editarProducto')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
                         <a onclick="EliminarElemento('{{$Producto->id}}', 'productos')" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i> Eliminar </a>
@@ -30,7 +30,7 @@
                 <th>Descripcion</th>
                 <th>Descripcion corta</th>
                 <th>Tipo de producto</th>
-                <th>Proveedor</th>
+                <th>Peso</th>
                 <th>Acciones</th>
             </tr>
         </tfoot>

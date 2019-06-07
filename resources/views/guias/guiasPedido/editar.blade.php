@@ -1,12 +1,12 @@
 
-<div id="editarGuiaEntrada" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="editarGuiaPedido" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
             <h2>Editar Cargo</h2>
          </div>
          <div class="modal-body">
-            <form id="editarGuiaEntrada" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
+            <form id="editarGuiaPedido" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
                <input type="hidden" id="id">
                <input type="hidden" id="productos">
                <div class="row">
@@ -25,21 +25,21 @@
                         </div>
                      </div>
                      <div class="col-md-6">
-                        <div class="form-group">
-                           <small class='form_description'>Fecha de ingreso</small>
-                              <input type="date" id="fecha_entrada" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
+                     <div class="form-group">
+                        <small class='form_description'>Fecha pautada para la entrega</small>
+                           <input type="date" id="fecha_entrega" required="required" class="form-control col-md-7 col-xs-12">
                      </div>
-                     <div class="col-md-12">
-                        <div class="form-group">
-                           <small class='form_description'>Proveedor</small>
-                              <select type="text" id="id_proveedor" class="form-control col-md-7 col-xs-12">
-                                 @foreach ($Datos["Proveedores"] as $Proveedor)
-                                    <option value="{{$Proveedor->id}}">{{$Proveedor->nombre}}</option>
-                                 @endforeach
-                              </select>
-                        </div>
+                  </div>
+                  <div class="col-md-12">
+                     <div class="form-group">
+                        <small class='form_description'>Clientes</small>
+                           <select type="text" id="id_cliente" class="form-control col-md-7 col-xs-12">
+                              @foreach ($Datos["Clientes"] as $Cliente)
+                                 <option value="{{$Cliente->id}}">{{$Cliente->nombre}}</option>
+                              @endforeach
+                           </select>
                      </div>
+                  </div>
                   <div style="display: none" class="ln_solid"></div>
                   <div class="form-group">
                      <div class="col-md-12" style="padding-top: 15px;">
@@ -67,14 +67,13 @@
           Pro+=this.value+",";
           }
       });
-      $("#editarGuiaEntrada #productos").val(Pro);
-         ValidarGeneral('editarGuiaEntrada', 'update', 'guias-entrada')
+      $("#editarGuiaPedido #productos").val(Pro);
+         ValidarGeneral('editarGuiaPedido', 'update', 'guias-pedido')
       }
 
 
    $(document).ready(function(){
-      $("#editarChoferForm #cargo").chosen();
-      validateChofer("editarChoferForm");
+      $("#editarGuiaPedido #id_cliente").chosen();
    })
 </script>
 <style>

@@ -1,25 +1,25 @@
-<table id="GuiasEntradaTable" class="display" style="width:100%">
+<table id="GuiasPedidoTable" class="display" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Descripcion</th>
-                <th>Fecha de ingreso</th>
-                <th>Proveedor</th>
+                <th>Fecha pautada para la entrega</th>
+                <th>Cliente</th>
                 <th>Numero de productos</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-                @foreach ($Datos["GuiasEntrada"] as $GuiaEntrada)
-                <tr id="guias-entrada_{{$GuiaEntrada->id}}">
-                    <td>{{$GuiaEntrada->id}}</td>
-                    <td>{{$GuiaEntrada->descripcion_guia}}</td>
-                    <td>{{$GuiaEntrada->fecha_entrada}}</td>
-                    <td>{{$GuiaEntrada->Proveedor["nombre"]}}</td>
-                    <td>{{count($GuiaEntrada->Productos)}}</td>
+                @foreach ($Datos["GuiasPedido"] as $GuiaPedido)
+                <tr id="guias-pedido_{{$GuiaPedido->id}}">
+                    <td>{{$GuiaPedido->id}}</td>
+                    <td>{{$GuiaPedido->descripcion_guia}}</td>
+                    <td>{{$GuiaPedido->fecha_entrega}}</td>
+                    <td>{{$GuiaPedido->Cliente["nombre"]}}</td>
+                    <td>{{count($GuiaPedido->Productos)}}</td>
                     <td style="display: flex;">
-                        <a onclick="editarGuiaEntrada('{{$GuiaEntrada}}')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
-                        <a onclick="EliminarElemento('{{$GuiaEntrada->id}}', 'guias-entrada')" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i> Eliminar </a>
+                        <a onclick="editarGuiaPedido('{{$GuiaPedido}}')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
+                        <a onclick="EliminarElemento('{{$GuiaPedido->id}}', 'guias-pedido')" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i> Eliminar </a>
                     </td>
                 </tr>
                 @endforeach
@@ -29,7 +29,7 @@
                 <th>ID</th>
                 <th>Descripcion</th>
                 <th>Fecha de ingreso</th>
-                <th>Proveedor</th>
+                <th>Cliente</th>
                 <th>Numero de productos</th>
                 <th>Acciones</th>
             </tr>
@@ -37,15 +37,15 @@
     </table>
 
     <script>
-            $('#GuiasEntradaTable').DataTable({
+            $('#GuiasPedidoTable').DataTable({
                 language: {
                     url: 'http://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
                 }
             });
 
-            function editarGuiaEntrada(data) {
+            function editarGuiaPedido(data) {
 
-                editarElemento(data, 'editarGuiaEntrada');
+                editarElemento(data, 'editarGuiaPedido');
 
                 $("#RecopilarProductosEditarForm input").map(function(){
 
@@ -57,12 +57,12 @@
 
 
 
-                    if ($(this).attr("data-estatus")==1 && $(this).attr("data-id_guia_entrada")==$("#editarGuiaEntrada #id").val()) {
+                    if ($(this).attr("data-estatus")==2 && $(this).attr("data-id_guia_pedido")==$("#editarGuiaPedido #id").val()) {
                         $("#"+this.id).prop('checked', true);
                         $("#"+this.id).parent().addClass('checked');
                     }
 
-                    if ($(this).attr("data-estatus")==1 && $(this).attr("data-id_guia_entrada")!=$("#editarGuiaEntrada #id").val()) {
+                    if ($(this).attr("data-estatus")==2 && $(this).attr("data-id_guia_pedido")!=$("#editarGuiaPedido #id").val()) {
                         $("#"+this.id).attr('disabled', "disabled");
                         $("#"+this.id).parent().addClass('disabled');
                     }

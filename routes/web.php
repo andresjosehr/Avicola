@@ -88,8 +88,14 @@ Route::get('/', function () {
 
 	Route::resource('guias-entrada', "GuiasEntradaController");
 	Route::post('guias-entrada/listUpdate', "GuiasEntradaController@listUpdate");
-	
+	Route::post('guias-entrada/listUpdateProductos', "GuiasEntradaController@listUpdateProductos");
+	Route::post('guias-entrada/listUpdateProductosEditar', "GuiasEntradaController@listUpdateProductosEditar");
 
+
+	Route::resource('guias-pedido', "GuiasPedidoController");
+	Route::post('guias-pedido/listUpdate', "GuiasPedidoController@listUpdate");
+	Route::post('guias-pedido/listUpdateProductos', "GuiasPedidoController@listUpdateProductos");
+	Route::post('guias-pedido/listUpdateProductosEditar', "GuiasPedidoController@listUpdateProductosEditar");
 
 });
 

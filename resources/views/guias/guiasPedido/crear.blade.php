@@ -1,16 +1,16 @@
 <div class="contenedor">
-   <button onclick="$('#crearGuiaEntrada').modal('toggle')" class="botonF1">
+   <button onclick="$('#crearGuiaPedido').modal('toggle')" class="botonF1">
    <span>+</span>
    </button>
 </div>
-<div id="crearGuiaEntrada" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="crearGuiaPedido" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
             <h2>Registrar Guia de Entrada</h2>
          </div>
          <div class="modal-body">
-            <form id="crearGuiaEntradaForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
+            <form id="crearGuiaPedidoForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
                <input type="hidden" id="Productos">
                <div class="row">
                   <div class="col-md-12">
@@ -21,22 +21,22 @@
                   </div>
                   <div class="col-md-6">
                      <div class="form-group">
-                        <small class='form_description'>Descripción de la Guia de Entrada</small>
+                        <small class='form_description'>Descripción de la Guia de Pedido</small>
                            <input type="text" id="descripcion_guia" required="required" class="form-control col-md-7 col-xs-12">
                      </div>
                   </div>
                   <div class="col-md-6">
                      <div class="form-group">
-                        <small class='form_description'>Fecha de ingreso</small>
-                           <input type="date" id="fecha_entrada" required="required" class="form-control col-md-7 col-xs-12">
+                        <small class='form_description'>Fecha pautada para la entrega</small>
+                           <input type="date" id="fecha_entrega" required="required" class="form-control col-md-7 col-xs-12">
                      </div>
                   </div>
                   <div class="col-md-12">
                      <div class="form-group">
-                        <small class='form_description'>Proveedor</small>
-                           <select type="text" id="id_proveedor" class="form-control col-md-7 col-xs-12">
-                              @foreach ($Datos["Proveedores"] as $Proveedor)
-                                 <option value="{{$Proveedor->id}}">{{$Proveedor->nombre}}</option>
+                        <small class='form_description'>Clientes</small>
+                           <select type="text" id="id_cliente" class="form-control col-md-7 col-xs-12">
+                              @foreach ($Datos["Clientes"] as $Cliente)
+                                 <option value="{{$Cliente->id}}">{{$Cliente->nombre}}</option>
                               @endforeach
                            </select>
                      </div>
@@ -89,13 +89,13 @@
           Pro+=this.value+",";
           }
       });
-      $("#crearGuiaEntradaForm #productos").val(Pro);
-         ValidarGeneral('crearGuiaEntradaForm', 'crear', 'guias-entrada');
+      $("#crearGuiaPedidoForm #productos").val(Pro);
+         ValidarGeneral('crearGuiaPedidoForm', 'crear', 'guias-pedido');
       }
 
 
       $(document).ready(function(){
-         $("#crearGuiaEntradaForm #id_proveedor").chosen();
+         $("#crearGuiaPedidoForm #id_cliente").chosen();
             // window.ProductCount=0;
             // window.ProductTot=0;
       });

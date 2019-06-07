@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use App\TipoProductos;
 use App\Proveedores;
 use App\Productos;
-use App\GuiasEntrada;
+use App\Clientes;
+use App\GuiasPedido;
 
-class GuiasEntradaController extends Controller
+class GuiasPedidoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,34 +19,36 @@ class GuiasEntradaController extends Controller
     public function index()
     {
         $Datos["TipoProductos"]= TipoProductos::all();
-        $Datos["Proveedores"]= Proveedores::all();
+        $Datos["Clientes"]= Clientes::all();
         $Datos["Productos"]= Productos::all();
-        $Datos["GuiasEntrada"]= GuiasEntrada::with("Proveedor")->with("Productos")->get();
-        return view("guias.guiasEntrada.guiasEntrada", ["Datos" => $Datos]);
+        $Datos["GuiasPedido"]= GuiasPedido::with("Cliente")->with("Productos")->get();
+        return view("guias.guiasPedido.guiasPedido", ["Datos" => $Datos]);
     }
 
-     public function listUpdate()
+    public function listUpdate()
     {
         $Datos["TipoProductos"]= TipoProductos::all();
-        $Datos["Proveedores"]= Proveedores::all();
-        $Datos["Productos"]= Productos::where("estatus", "0")->get();
-        $Datos["GuiasEntrada"]= GuiasEntrada::with("Proveedor")->with("Productos")->get();
-        return view("guias.guiasEntrada.lista", ["Datos" => $Datos]);
+        $Datos["Clientes"]= Clientes::all();
+        $Datos["Productos"]= Productos::all();
+        $Datos["GuiasPedido"]= GuiasPedido::with("Cliente")->with("Productos")->get();
+        return view("guias.guiasPedido.lista", ["Datos" => $Datos]);
     }
 
 
-     public function listUpdateProductos()
+    public function listUpdateProductos()
     {
         $Datos["Productos"]= Productos::all();
-        return view("guias.guiasEntrada.productos", ["Datos" => $Datos]);
+        return view("guias.guiasPedido.productos", ["Datos" => $Datos]);
     }
 
 
     public function listUpdateProductosEditar()
     {
         $Datos["Productos"]= Productos::all();
-        return view("guias.guiasEntrada.productosEditar", ["Datos" => $Datos]);
+        return view("guias.guiasPedido.productosEditar", ["Datos" => $Datos]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -65,18 +68,14 @@ class GuiasEntradaController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        GuiasEntrada::insert($request->only("descripcion_guia", "fecha_ingreso", "id_proveedor", 'fecha_entrada'));
-        $GuiasEntrada=GuiasEntrada::orderBy("id", "DESC")->first();
+        GuiasPedido::insert($request->only("descripcion_guia", "fecha_entrega", "id_cliente"));
+        $GuiasPedido=GuiasPedido::orderBy("id", "DESC")->first();
 
         foreach (explode(",", $request->productos) as $Producto) {
-            Productos::where("id", $Producto)->update(["estatus" => 1, "id_guia_entrada" => $GuiasEntrada->id]);
+            Productos::where("id", $Producto)->update(["estatus" => 2, "id_guia_pedido" => $GuiasPedido->id]);
         }
 
         return "Exito";
-
-
     }
 
     /**
@@ -110,12 +109,12 @@ class GuiasEntradaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        GuiasEntrada::where("id", $id)->update($request->only("descripcion_guia", "fecha_ingreso", "id_proveedor", 'fecha_entrada'));
+        GuiasPedido::where("id", $id)->update($request->only("descripcion_guia", "fecha_entrega", "id_cliente"));
 
-        Productos::where("id_guia_entrada",  $id)->update(["estatus" => 0, "id_guia_entrada" => 0 ]);
+        Productos::where("id_guia_pedido",  $id)->update(["estatus" => 1, "id_guia_pedido" => 0 ]);
 
         foreach (explode(",", $request->productos) as $Producto) {
-            Productos::where("id", $Producto)->update(["estatus" => 1, "id_guia_entrada" => $id]);
+            Productos::where("id", $Producto)->update(["estatus" => 2, "id_guia_pedido" => $id]);
         }
 
         return "Exito";
@@ -129,7 +128,7 @@ class GuiasEntradaController extends Controller
      */
     public function destroy($id)
     {
-        GuiasEntrada::where("id", $id)->delete();
-        Productos::where("id_guia_entrada",  $id)->update(["estatus" => 0, "id_guia_entrada" => 0 ]);
+        GuiasPedido::where("id", $id)->delete();
+        Productos::where("id_guia_pedido",  $id)->update(["estatus" => 1, "id_guia_entrada" => 0 ]);
     }
 }
