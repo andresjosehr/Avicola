@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class GuiasPedidoTable extends Migration
+class UnidadesProductosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class GuiasPedidoTable extends Migration
      */
     public function up()
     {
-        Schema::create('guias_pedido', function (Blueprint $table) {
+        Schema::create('unidades_productos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('descripcion_guia')->nullable();
-            $table->string('fecha_entrega')->nullable();
-            $table->string('id_cliente')->nullable();
+            $table->string('peso')->nullable();
+            $table->string('id_guia_entrada')->nullable();
+            $table->string('estatus')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class GuiasPedidoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('guias_pedido');
+        Schema::dropIfExists('unidades_productos');
     }
 }

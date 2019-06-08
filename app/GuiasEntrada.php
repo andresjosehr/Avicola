@@ -8,9 +8,9 @@ class GuiasEntrada extends Model
 {
     protected $table="guias_entrada";
 
-    public function Productos()
+    public function UnidadesProductos()
     {
-    	return $this->hasMany(Productos::class, "id_guia_entrada", "id");
+    	return $this->hasMany(UnidadesProductos::class, "id_guia_entrada", "id");
     }
 
     public function Proveedor()

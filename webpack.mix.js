@@ -11,11 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 
-// mix.setResourceRoot ('../')
-//    .js('resources/js/template.js', 'public/js')
-//    .sass('resources/sass/template.scss', 'public/css');
+mix.setResourceRoot ('../')
+   .js('resources/js/template.js', 'public/js')
+   .sass('resources/sass/template.scss', 'public/css');
 
 
-	mix.setResourceRoot ('../')
-		.js('resources/js/app.js', 'public/js')
-	   .sass('resources/sass/app.scss', 'public/css');
+	// mix.setResourceRoot ('../')
+	// 	.js('resources/js/app.js', 'public/js')
+	//    .sass('resources/sass/app.scss', 'public/css');

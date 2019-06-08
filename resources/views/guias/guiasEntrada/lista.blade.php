@@ -11,15 +11,15 @@
         </thead>
         <tbody>
                 @foreach ($Datos["GuiasEntrada"] as $GuiaEntrada)
-                <tr id="guias-entrada_{{$GuiaEntrada->id}}">
+                <tr id="guia_entrada_{{$GuiaEntrada->id}}">
                     <td>{{$GuiaEntrada->id}}</td>
                     <td>{{$GuiaEntrada->descripcion_guia}}</td>
                     <td>{{$GuiaEntrada->fecha_entrada}}</td>
                     <td>{{$GuiaEntrada->Proveedor["nombre"]}}</td>
-                    <td>{{count($GuiaEntrada->Productos)}}</td>
+                    <td>{{count($GuiaEntrada->UnidadesProductos)}}</td>
                     <td style="display: flex;">
-                        <a onclick="editarGuiaEntrada('{{$GuiaEntrada}}')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
-                        <a onclick="EliminarElemento('{{$GuiaEntrada->id}}', 'guias-entrada')" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i> Eliminar </a>
+                        <a onclick="editarElemento('{{$GuiaEntrada}}', 'editarGuiaEntrada')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
+                        <a onclick="EliminarElemento('{{$GuiaEntrada->id}}', 'guia-entrada')" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i> Eliminar </a>
                     </td>
                 </tr>
                 @endforeach
@@ -42,30 +42,4 @@
                     url: 'http://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
                 }
             });
-
-            function editarGuiaEntrada(data) {
-
-                editarElemento(data, 'editarGuiaEntrada');
-
-                $("#RecopilarProductosEditarForm input").map(function(){
-
-                    $("#"+this.id).prop('checked', false);
-                    $("#"+this.id).parent().removeClass('checked');
-
-                        $("#"+this.id).removeAttr('disabled');
-                        $("#"+this.id).parent().removeClass('disabled');
-
-
-
-                    if ($(this).attr("data-estatus")==1 && $(this).attr("data-id_guia_entrada")==$("#editarGuiaEntrada #id").val()) {
-                        $("#"+this.id).prop('checked', true);
-                        $("#"+this.id).parent().addClass('checked');
-                    }
-
-                    if ($(this).attr("data-estatus")==1 && $(this).attr("data-id_guia_entrada")!=$("#editarGuiaEntrada #id").val()) {
-                        $("#"+this.id).attr('disabled', "disabled");
-                        $("#"+this.id).parent().addClass('disabled');
-                    }
-                })
-            }
     </script>

@@ -16,13 +16,5 @@
 
 
 @include("guias.guiasEntrada.crear")
-
-<div id="listUpdateProductos">
-   @include("guias.guiasEntrada.productos")
-</div>
-
-<div id="listUpdateProductosEditar">
-   @include("guias.guiasEntrada.productosEditar")
-</div>
-@include("guias.guiasEntrada.editar")
+{{-- @include("maestros.cargos.editar") --}}
 @include("footer")

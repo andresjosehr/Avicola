@@ -83,7 +83,7 @@
                     <ul class="nav child_menu">
                       <li><a href="guias-entrada">Guía de Entrada</a></li>
                       <li><a href="guia-salida">Guía Salida</a></li>
-                      <li><a href="guias-pedido">Guía Pedido</a></li>
+                      <li><a href="#">Guía Pedido</a></li>
                       <li><a href="#">Liquidación Venta Diaria</a></li>
                     </ul>
                   </li>
