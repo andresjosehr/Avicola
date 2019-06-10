@@ -5,7 +5,8 @@
                 <th>Descripcion</th>
                 <th>Fecha de ingreso</th>
                 <th>Proveedor</th>
-                <th>Numero de productos</th>
+                <th>Productos</th>
+                <th>Numero de unidades</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
                     <td>{{$GuiaEntrada->descripcion_guia}}</td>
                     <td>{{$GuiaEntrada->fecha_entrada}}</td>
                     <td>{{$GuiaEntrada->Proveedor["nombre"]}}</td>
+                    <td>{{$GuiaEntrada->Producto["descripcion"]}}</td>
                     <td>{{count($GuiaEntrada->UnidadesProductos)}}</td>
                     <td style="display: flex;">
                         <a onclick="EditarGuiaEntrada('{{$GuiaEntrada}}')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
@@ -30,7 +32,8 @@
                 <th>Descripcion</th>
                 <th>Fecha de ingreso</th>
                 <th>Proveedor</th>
-                <th>Numero de productos</th>
+                <th>Productos</th>
+                <th>Numero de unidades</th>
                 <th>Acciones</th>
             </tr>
         </tfoot>

@@ -21,7 +21,7 @@ class GuiasEntradaController extends Controller
         $Datos["TipoProductos"]= TipoProductos::all();
         $Datos["Productos"]= Productos::all();
         $Datos["Proveedores"]= Proveedores::all();
-        $Datos["GuiasEntrada"]= GuiasEntrada::with("Proveedor")->with("UnidadesProductos")->get();
+        $Datos["GuiasEntrada"]= GuiasEntrada::with("Proveedor")->with("Producto")->with("UnidadesProductos")->get();
         return view("guias.guiasEntrada.guiasEntrada", ["Datos" => $Datos]);
     }
 

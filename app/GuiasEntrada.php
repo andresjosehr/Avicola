@@ -18,4 +18,9 @@ class GuiasEntrada extends Model
     	return $this->hasOne(Proveedores::class, "id", "id_proveedor");
     }
 
+    public function Producto()
+    {
+    	return $this->hasOne(Productos::class, "id", "id_producto");
+    }
+
 }

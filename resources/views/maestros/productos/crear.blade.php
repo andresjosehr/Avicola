@@ -26,7 +26,7 @@
                   </div>
                   <div class="col-md-6">
                      <div class="form-group">
-                        <small class='form_description'>Nombre del Producto</small>
+                        <small class='form_description'>Tipo de Producto</small>
                            <select id="id_tipo_producto" required="required" class="form-control col-md-7 col-xs-12">
                               @foreach ($Datos["TipoProductos"] as $TipoProducto)
                                  <option value="{{$TipoProducto->id}}">{{$TipoProducto->descripcion}}</option>
@@ -36,7 +36,7 @@
                   </div>
                    <div class="col-md-6">
                      <div class="form-group">
-                        <small class='form_description'>Nombre del Producto</small>
+                        <small class='form_description'>Proveedor del Producto</small>
                            <select id="id_proveedor" required="required" class="form-control col-md-7 col-xs-12">
                               @foreach ($Datos["Proveedores"] as $Proveedor)
                                  <option value="{{$Proveedor->id}}">{{$Proveedor->nombre}}</option>
