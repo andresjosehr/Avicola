@@ -18,6 +18,7 @@ class GuiasEntradaTable extends Migration
             $table->string('descripcion_guia')->nullable();
             $table->string('fecha_entrada')->nullable();
             $table->string('id_proveedor')->nullable();
+            $table->string('id_producto')->nullable();
             $table->timestamps();
         });
     }

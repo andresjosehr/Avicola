@@ -11,15 +11,15 @@
         </thead>
         <tbody>
                 @foreach ($Datos["GuiasEntrada"] as $GuiaEntrada)
-                <tr id="guia_entrada_{{$GuiaEntrada->id}}">
+                <tr id="guias-entrada_{{$GuiaEntrada->id}}">
                     <td>{{$GuiaEntrada->id}}</td>
                     <td>{{$GuiaEntrada->descripcion_guia}}</td>
                     <td>{{$GuiaEntrada->fecha_entrada}}</td>
                     <td>{{$GuiaEntrada->Proveedor["nombre"]}}</td>
                     <td>{{count($GuiaEntrada->UnidadesProductos)}}</td>
                     <td style="display: flex;">
-                        <a onclick="editarElemento('{{$GuiaEntrada}}', 'editarGuiaEntrada')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
-                        <a onclick="EliminarElemento('{{$GuiaEntrada->id}}', 'guia-entrada')" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i> Eliminar </a>
+                        <a onclick="EditarGuiaEntrada('{{$GuiaEntrada}}')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
+                        <a onclick="EliminarElemento('{{$GuiaEntrada->id}}', 'guias-entrada')" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i> Eliminar </a>
                     </td>
                 </tr>
                 @endforeach
@@ -37,6 +37,26 @@
     </table>
 
     <script>
+        function EditarGuiaEntrada(elemento) {
+
+            $("#editarGuiaEntradaForm .input_div").empty();
+            var unidades_productos = JSON.parse(elemento).unidades_productos;
+            elemento=JSON.parse(elemento);
+
+            for (var i = 0; i < unidades_productos.length; i++) {
+
+                $("#editarGuiaEntradaForm .input_div").append('<div class="col-md-2 div_product_'+i+'" style="margin-top: 10px;">'+
+                                                                '<input type="text" id="peso'+i+'" value="'+unidades_productos[i].peso+'" required="required" class="form-control col-md-7 col-xs-12" placeholder="Peso">'+
+                                                              '</div>');
+                elemento["peso"+i]=unidades_productos[i].peso;
+            }
+            elemento["unidades"]=unidades_productos.length;
+            elemento=JSON.stringify(elemento);
+
+            editarElemento(elemento, 'editarGuiaEntrada')
+        }
+
+
             $('#GuiasEntradaTable').DataTable({
                 language: {
                     url: 'http://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'

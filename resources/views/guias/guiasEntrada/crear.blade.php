@@ -85,7 +85,7 @@
    });
 
 
-   const $unidades = document.querySelector('#unidades');
+   const $unidades = document.querySelector('#crearGuiaEntrada #unidades');
 
    const AddUnidad = function(e) {
 

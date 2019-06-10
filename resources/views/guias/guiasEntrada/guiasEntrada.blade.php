@@ -16,5 +16,5 @@
 
 
 @include("guias.guiasEntrada.crear")
-{{-- @include("maestros.cargos.editar") --}}
+@include("guias.guiasEntrada.editar")
 @include("footer")

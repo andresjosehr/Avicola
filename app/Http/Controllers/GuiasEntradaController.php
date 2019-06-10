@@ -54,7 +54,7 @@ class GuiasEntradaController extends Controller
     {
 
 
-        GuiasEntrada::insert($request->only("descripcion_guia", "id_proveedor", 'fecha_entrada'));
+        GuiasEntrada::insert($request->only("descripcion_guia", "id_proveedor", 'fecha_entrada', 'id_producto'));
         $GuiaEntrada=GuiasEntrada::orderBy("id", "DESC")->first();
         
         foreach ($request->except("descripcion_guia", "id_proveedor", 'fecha_entrada', "unidades", "id_producto") as $Producto => $val) {
@@ -98,7 +98,15 @@ class GuiasEntradaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        GuiasEntrada::where("id", $id)->update($request->only("descripcion_guia", "id_proveedor", 'fecha_entrada', 'id_producto'));
+        
+        UnidadesProductos::where("id_guia_entrada", $id)->delete();
+
+        foreach ($request->except("descripcion_guia", "id_proveedor", 'fecha_entrada', "unidades", "id_producto", "_method", "id") as $Producto => $val) {
+            UnidadesProductos::insert(["id_guia_entrada" => $id, "estatus" => 0, "peso" => $val]);
+
+        }
+        return "Exito";
     }
 
     /**
@@ -109,6 +117,7 @@ class GuiasEntradaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        UnidadesProductos::where("id_guia_entrada", $id)->delete();
+        GuiasEntrada::where("id", $id)->delete();
     }
 }
