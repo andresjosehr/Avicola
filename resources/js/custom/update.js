@@ -34,6 +34,11 @@ window.updateElemento=(idForm, modulo)=>{
 				    });
 
 		    		$("#listUpdate").load(url+"/"+modulo+"/listUpdate",{Data: "Ex"});
+
+
+		    		if (modulo=="guias-entrada" || modulo=="guias-pedido") $("#listUpdateProductos").load(url+"/"+modulo+"/listUpdateProductos",{Data: "Ex"}); $("#listUpdateProductosEditar").load(url+"/"+modulo+"/listUpdateProductosEditar",{Data: "Ex"});
+
+		    		
 		    	}else {
 		    		for (key in result) {
 		    			$("#"+idForm+" #"+key).after().after("<p class='input-error' style='color:red'>"+result[key][0]+"</p>")
