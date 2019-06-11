@@ -17,6 +17,9 @@ class UnidadesProductosTable extends Migration
             $table->increments('id');
             $table->string('peso')->nullable();
             $table->string('id_guia_entrada')->nullable();
+            $table->string('id_guia_pedido')->nullable();
+            $table->string('id_guia_salida')->nullable();
+            $table->string('id_producto')->nullable();
             $table->string('estatus')->nullable();
             $table->timestamps();
         });
