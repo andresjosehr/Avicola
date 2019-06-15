@@ -8,6 +8,7 @@ use App\Proveedores;
 use App\Productos;
 use App\GuiasEntrada;
 use App\UnidadesProductos;
+use App\Modulos;
 
 class GuiasEntradaController extends Controller
 {
@@ -22,7 +23,7 @@ class GuiasEntradaController extends Controller
         $Datos["Productos"]= Productos::all();
         $Datos["Proveedores"]= Proveedores::all();
         $Datos["GuiasEntrada"]= GuiasEntrada::with("Proveedor")->with("Producto")->with("UnidadesProductos")->get();
-        return view("guias.guiasEntrada.guiasEntrada", ["Datos" => $Datos]);
+        return view("guias.guiasEntrada.guiasEntrada", ["Datos" => $Datos])->with('Modulos', Modulos::all());
     }
 
     public function listUpdate()

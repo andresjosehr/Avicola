@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
 			'nombre' => "Pedro Perez",
 			'email'=>'demo@avicola.com',
 			'password'=> Hash::make('secret'),
+			'rol'=> "1",
 			]);
 
 
@@ -20847,5 +20848,28 @@ class DatabaseSeeder extends Seeder
 
 
 				DB::select("UPDATE sys_seb_ubigeo SET id_ubigeo = Concat('0', id_ubigeo)  WHERE id_ubigeo<100000");
+
+				DB::table("modulos")->insert(["modulo_padre" => "maestros", "ruta" => "clientes", "descripcion" => "Clientes"]);
+				DB::table("modulos")->insert(["modulo_padre" => "maestros", "ruta" => "proveedores", "descripcion" => "Proovedores"]);
+				DB::table("modulos")->insert(["modulo_padre" => "maestros", "ruta" => "contactos", "descripcion" => "Contactos"]);
+				DB::table("modulos")->insert(["modulo_padre" => "maestros", "ruta" => "tipo_productos", "descripcion" => "Tipo"]);
+				DB::table("modulos")->insert(["modulo_padre" => "maestros", "ruta" => "categorias", "descripcion" => "Categorias"]);
+				DB::table("modulos")->insert(["modulo_padre" => "maestros", "ruta" => "productos", "descripcion" => "Productos"]);
+				DB::table("modulos")->insert(["modulo_padre" => "maestros", "ruta" => "#", "descripcion" => "Almacen"]);
+				DB::table("modulos")->insert(["modulo_padre" => "maestros", "ruta" => "cargos", "descripcion" => "Cargos"]);
+				DB::table("modulos")->insert(["modulo_padre" => "maestros", "ruta" => "choferes", "descripcion" => "Choferes"]);
+				DB::table("modulos")->insert(["modulo_padre" => "maestros", "ruta" => "automoviles", "descripcion" => "Autos"]);
+				DB::table("modulos")->insert(["modulo_padre" => "maestros", "ruta" => "empleados", "descripcion" => "Empleados"]);
+				DB::table("modulos")->insert(["modulo_padre" => "guias", "ruta" => "guias-entrada", "descripcion" => "Guía de Entrada"]);
+				DB::table("modulos")->insert(["modulo_padre" => "guias", "ruta" => "guia-salida", "descripcion" => "Guía Salida"]);
+				DB::table("modulos")->insert(["modulo_padre" => "guias", "ruta" => "guias-pedido", "descripcion" => "Guía Pedido"]);
+				DB::table("modulos")->insert(["modulo_padre" => "guias", "ruta" => "#", "descripcion" => "Liquidación Venta Diaria"]);
+				DB::table("modulos")->insert(["modulo_padre" => "facturacion", "ruta" => "#", "descripcion" => "Factura Electronica"]);
+				DB::table("modulos")->insert(["modulo_padre" => "facturacion", "ruta" => "#", "descripcion" => "Boleta Electronica"]);
+				DB::table("modulos")->insert(["modulo_padre" => "facturacion", "ruta" => "#", "descripcion" => "Anulación de Boleta"]);
+				DB::table("modulos")->insert(["modulo_padre" => "facturacion", "ruta" => "#", "descripcion" => "Nota de Credito"]);
+				DB::table("modulos")->insert(["modulo_padre" => "facturacion", "ruta" => "#", "descripcion" => "Resumenes"]);
+				DB::table("modulos")->insert(["modulo_padre" => "reportes", "ruta" => "#", "descripcion" => "Ventas"]);
+				DB::table("modulos")->insert(["modulo_padre" => "reportes", "ruta" => "#", "descripcion" => "Cuentas por Cobrar"]);
     }
 }

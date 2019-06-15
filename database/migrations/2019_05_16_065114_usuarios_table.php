@@ -19,7 +19,8 @@ class UsuariosTable extends Migration
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('codigo_password')->nullable();
-            $table->integer('rol')->nullable();;
+            $table->integer('rol')->nullable();
+            $table->integer('id_grupo')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();
         });

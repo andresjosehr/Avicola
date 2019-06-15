@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Empleados;
 use App\Cargos;
+use App\Modulos;
 
 class ChoferesController extends Controller
 {
@@ -18,7 +19,7 @@ class ChoferesController extends Controller
 
         $Datos["Choferes"]=Empleados::where("chofer", "Si")->with("Cargo")->get();
         $Datos["Cargos"]=Cargos::all();
-        return view("maestros.choferes.choferes", ["Datos" => $Datos]);
+        return view("maestros.choferes.choferes", ["Datos" => $Datos])->with('Modulos', Modulos::all());
     }
 
     public function listUpdate()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\TipoProductos;
 use App\Categorias;
+use App\Modulos;
 
 class TipoProductosController extends Controller
 {
@@ -17,7 +18,7 @@ class TipoProductosController extends Controller
     {
         $Datos["Categorias"]=Categorias::all();
         $Datos["TipoProductos"]=TipoProductos::with("Categoria")->get();
-        return view("maestros.tipo_productos.tipo_productos", ["Datos" => $Datos]);
+        return view("maestros.tipo_productos.tipo_productos", ["Datos" => $Datos])->with('Modulos', Modulos::all());
     }
 
      public function listUpdate()

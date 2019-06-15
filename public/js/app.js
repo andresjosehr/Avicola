@@ -289,6 +289,55 @@ window.crearElemento = function (idForm, modulo) {
   });
 };
 
+window.crearCuenta = function (idForm, modulo) {
+  var Data = {};
+  $("#" + idForm + " input,#" + idForm + " select").map(function (key, input) {
+    return Data[input.id] = input.value;
+  });
+  $(".btn_avicola").hide("fast", function () {
+    $(".loading_avicola").show("fast");
+  });
+  $(".input-error").remove();
+  $.ajax({
+    type: 'POST',
+    url: url + "/" + modulo + "/crearCuenta",
+    data: Data,
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success(result) {
+      $(".loading_avicola").hide("fast", function () {
+        $(".btn_avicola").show("fast");
+      });
+
+      if (result == "Exito") {
+        swal("¡Listo!", "Registro realizado de manera exitosa", "success");
+        $("#" + idForm + " input").map(function (key, input) {
+          $(this).val("");
+        });
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $("#listUpdate").load(url + "/" + modulo + "/listUpdate", {
+          Data: "Ex"
+        });
+        if (modulo == "guias-entrada" || modulo == "guias-pedido") $("#listUpdateProductos").load(url + "/" + modulo + "/listUpdateProductos", {
+          Data: "Ex"
+        });
+        $("#listUpdateProductosEditar").load(url + "/" + modulo + "/listUpdateProductosEditar", {
+          Data: "Ex"
+        });
+      } else {
+        for (key in result) {
+          $("#" + idForm + " #" + key).after().after("<p class='input-error' style='color:red'>" + result[key][0] + "</p>");
+        }
+      }
+    }
+  });
+};
+
 /***/ }),
 
 /***/ "./resources/js/custom/editar.js":
@@ -301,10 +350,10 @@ window.crearElemento = function (idForm, modulo) {
 window.editarElemento = function (Datos, idForm) {
   Datos = JSON.parse(Datos);
   if (idForm == "editarChofer") if (Datos.cargo != undefined) Datos.cargo = Datos.cargo.id;
-  $("#" + idForm + " input:not(.chosen-search-input)").map(function (key, input) {
+  $("#" + idForm + " input:not(.chosen-search-input, input[type=search], input[type=checkbox], input[type=radio])").map(function (key, input) {
     input.value = Datos[input.id];
   });
-  $("#" + idForm + " select:not(.chosen-search-input)").map(function (key, input) {
+  $("#" + idForm + " select:not(.chosen-search-input) select:not(.dataTables_length select) ").map(function (key, input) {
     input.value = Datos[input.id];
     $('#' + idForm + ' #' + input.id).trigger("chosen:updated");
   });
@@ -447,6 +496,10 @@ window.ValidarGeneral = function (id, tipo, modulo) {
           execute = true;
           i = 1;
         }
+      }
+
+      if (tipo == "crear_cuenta") {
+        crearCuenta(id, modulo);
       }
     }
   });

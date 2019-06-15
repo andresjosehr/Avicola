@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Modulos;
 
 class MantenedoresController extends Controller
 {
@@ -13,7 +14,7 @@ class MantenedoresController extends Controller
      */
     public function index()
     {
-        return view("maestros.mantenedores.mantenedores");
+        return view("maestros.mantenedores.mantenedores")->with('Modulos', Modulos::all());
     }
 
     /**

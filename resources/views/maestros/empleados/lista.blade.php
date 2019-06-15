@@ -21,6 +21,9 @@
                     <td>{{$Empleado->chofer}}</td>
                     <td>@if ($Empleado->licencia==null) No Aplica @else {{$Empleado->licencia}} @endif </td>
                     <td style="display: flex;">
+                        @if (!$Empleado->id_usuario)
+                            <a onclick="CrearCuenta('{{$Empleado}}')" class="btn btn-success btn-xs"><i class="far fa-user"></i> Crear cuenta</a>
+                        @endif
                         <a onclick="editarEmpleado('{{$Empleado}}', 'editarEmpleado')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
                         <a onclick="EliminarElemento('{{$Empleado->id}}', 'empleados')" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i> Eliminar </a>
                     </td>
@@ -41,6 +44,15 @@
     </table>
 
     <script>
+
+
+        window.CrearCuenta=(Datos)=>{
+            Datos=JSON.parse(Datos);
+            $("#id_empleado").val(Datos.id);
+            $('#CrearCuenta').modal('toggle');
+        }
+
+
             $('#EmpleadosTable').DataTable({
                 language: {
                     url: 'http://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'

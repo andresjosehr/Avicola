@@ -7,6 +7,8 @@ use App\Usuarios;
 use Hash;
 use View;
 use Illuminate\Support\Str;
+use App\Modulos;
+use App\ModulosGrupos;
 
 class SeguridadController extends Controller
 {
@@ -41,7 +43,9 @@ class SeguridadController extends Controller
             session()->put('id', $Usuario->id);
             session()->put('nombre', $Usuario->nombre);
             session()->put('email', $Usuario->email);
-      session()->put('rol', $Usuario->rol);
+            session()->put('rol', $Usuario->rol);
+            session()->put('grupo', $Usuario->id_grupo);
+            session()->put('modulos', ModulosGrupos::where("id_grupo_usuario", $Usuario->id_grupo)->with("Modulos")->get());
             
             return "Exito";
         }  

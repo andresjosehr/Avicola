@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\TipoProductos;
 use App\Proveedores;
 use App\Productos;
+use App\Modulos;
 
 class ProductosController extends Controller
 {
@@ -21,7 +22,7 @@ class ProductosController extends Controller
         $Datos["Proveedores"]=Proveedores::all();
         $Datos["TipoProductos"]=TipoProductos::all();
         $Datos["Productos"]=Productos::with("TipoProducto")->with("Proveedor")->get();
-        return view("maestros.productos.productos", ["Datos" => $Datos]);
+        return view("maestros.productos.productos", ["Datos" => $Datos])->with('Modulos', Modulos::all());
     }
 
 

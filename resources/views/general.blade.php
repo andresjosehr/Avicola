@@ -60,55 +60,81 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>General</h3>
-                <ul class="nav side-menu">
-                  <li><a href="#"><i class="fa fa-home"></i> Inicio</a>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Maestros <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav side-menu" id="sidebar" style="display: none">
+                  <li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>
+                  <li class='li_padre'><a><i class="fa fa-edit"></i> Maestros <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="mantenedores">Mantenedores</a></li>
-                      <li><a href="clientes">Clientes</a></li>
-                      <li><a href="proveedores">Proovedores</a></li>
-                      <li><a href="contactos">Contactos</a></li>
-                      <li><a href="tipo_productos">Tipo</a></li>
-                      <li><a href="categorias">Categorias</a></li>
-                      <li><a href="productos">Productos</a></li>
-                      <li><a href="#">Almacen</a></li>
-                      <li><a href="cargos">Cargos</a></li>
-                      <li><a href="choferes">Choferes</a></li>
-                      <li><a href="automoviles">Autos</a></li>
-                      <li><a href="empleados">Empleados</a></li>
+                      @foreach(session()->get('modulos') as $ModuloAsignado)
+                        @if ($ModuloAsignado->modulos["modulo_padre"]=="maestros" && session()->get("rol")==2)
+                            <li><a href="{{$ModuloAsignado->modulos['ruta']}}">{{$ModuloAsignado->modulos["descripcion"]}}</a></li>
+                        @endif
+                      @endforeach
+                      @if(session()->get("rol")==1)
+                        @foreach ($Modulos as $Modulo)
+                        @if ($Modulo->modulo_padre=='maestros')
+                          <li><a href="{{$Modulo->ruta}}">{{$Modulo->descripcion}}</a></li>
+                        @endif
+                        @endforeach
+                      @endif
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-clone"></i> Guías <span class="fa fa-chevron-down"></span></a>
+                  <li class='li_padre'><a><i class="fa fa-clone"></i> Guías <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="guias-entrada">Guía de Entrada</a></li>
-                      <li><a href="guia-salida">Guía Salida</a></li>
-                      <li><a href="guias-pedido">Guía Pedido</a></li>
-                      <li><a href="#">Liquidación Venta Diaria</a></li>
+                      @foreach(session()->get('modulos') as $ModuloAsignado)
+                        @if ($ModuloAsignado->modulos["modulo_padre"]=="guias" && session()->get("rol")==2)
+                            <li><a href="{{$ModuloAsignado->modulos['ruta']}}">{{$ModuloAsignado->modulos["descripcion"]}}</a></li>
+                        @endif
+                      @endforeach
+                      @if(session()->get("rol")==1)
+                        @foreach ($Modulos as $Modulo)
+                        @if ($Modulo->modulo_padre=='guias')
+                          <li><a href="{{$Modulo->ruta}}">{{$Modulo->descripcion}}</a></li>
+                        @endif
+                        @endforeach
+                      @endif
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Facturación <span class="fa fa-chevron-down"></span></a>
+                  <li class='li_padre'><a><i class="fa fa-table"></i> Facturación <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#">Factura Electronica</a></li>
-                      <li><a href="#">Boleta Electronica</a></li>
-                      <li><a href="#">Anulación de Boleta</a></li>
-                      <li><a href="#">Nota de Credito</a></li>
-                      <li><a href="#">Resumenes</a></li>
+                      @foreach(session()->get('modulos') as $ModuloAsignado)
+                        @if ($ModuloAsignado->modulos["modulo_padre"]=="facturacion" && session()->get("rol")==2)
+                            <li><a href="{{$ModuloAsignado->modulos['ruta']}}">{{$ModuloAsignado->modulos["descripcion"]}}</a></li>
+                        @endif
+                      @endforeach
+                      @if(session()->get("rol")==1)
+                        @foreach ($Modulos as $Modulo)
+                        @if ($Modulo->modulo_padre=='facturacion')
+                          <li><a href="{{$Modulo->ruta}}">{{$Modulo->descripcion}}</a></li>
+                        @endif
+                        @endforeach
+                      @endif
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                  <li class='li_padre'><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#">Ventas</a></li>
-                      <li><a href="#">Cuentas por Cobrar</a></li>
-                    </ul>
+                    @foreach(session()->get('modulos') as $ModuloAsignado)
+                        @if ($ModuloAsignado->modulos["modulo_padre"]=="reportes" && session()->get("rol")==2)
+                            <li><a href="{{$ModuloAsignado->modulos['ruta']}}">{{$ModuloAsignado->modulos["descripcion"]}}</a></li>
+                        @endif
+                      @endforeach
+                      @if(session()->get("rol")==1)
+                        @foreach ($Modulos as $Modulo)
+                        @if ($Modulo->modulo_padre=='reportes')
+                          <li><a href="{{$Modulo->ruta}}">{{$Modulo->descripcion}}</a></li>
+                        @endif
+                        @endforeach
+                      @endif
+                  </ul>
                   </li>
-                  <li><a><i class="fa fa-user"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="usuarios">Usuarios</a></li>
-                      <li><a href="#">Permisos por Trabajo</a></li>
-                      <li><a href="#">Gestion de Backups</a></li>
-                    </ul>
-                  </li>
+                    @if (session()->get("rol")=="1")
+                      <li><a><i class="fa fa-user"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          <li><a href="usuarios">Usuarios</a></li>
+                          <li><a href="grupos-usuarios">Grupos usuarios</a></li>
+                          <li><a href="#">Gestion de Backups</a></li>
+                        </ul>
+                      </li>
+                  @endif
                 </ul>
               </div>
             </div>
@@ -141,12 +167,19 @@
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="CerrarSesion"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesion</a></li>
                   </ul>
-                </li>
-
-                
+                </li>  
               </ul>
             </nav>
           </div>
         </div>
+
+        <script>
+          $(".li_padre").map(function(){
+            if($(this).find("ul").find("li").length==0){
+              $(this).remove()
+            }
+          })
+          $("#sidebar").show(500);
+        </script>
         <!-- /top navigation -->
         

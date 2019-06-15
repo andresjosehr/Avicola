@@ -10,6 +10,7 @@ use App\UnidadesProductos;
 use App\Clientes;
 use App\GuiasPedido;
 use App\Empleados;
+use App\Modulos;
 
 class GuiasPedidoController extends Controller
 {
@@ -26,7 +27,7 @@ class GuiasPedidoController extends Controller
         $Datos["Productos"] = Productos::all();
         $Datos["Choferes"] = Empleados::where("chofer", "Si")->get();
         $Datos["GuiasPedido"]= GuiasPedido::with("Cliente")->with("UnidadesProductos")->get();
-        return view("guias.guiasPedido.guiasPedido", ["Datos" => $Datos]);
+        return view("guias.guiasPedido.guiasPedido", ["Datos" => $Datos])->with('Modulos', Modulos::all());
     }
 
     public function listUpdate()

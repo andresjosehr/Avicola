@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Usuarios;
+use App\GruposUsuarios;
+use App\Modulos;
 use Illuminate\Http\Request;
 use Hash;
 
@@ -15,12 +17,16 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        return view("seguridad.usuarios.usuarios", ["Usuarios" => Usuarios::all()]);
+        $Datos["Usuarios"]=Usuarios::all();
+        $Datos["GruposUsuarios"]=GruposUsuarios::all();
+        return view("seguridad.usuarios.usuarios", ["Datos" => $Datos])->with('Modulos', Modulos::all());
     }
 
     public function listUpdate()
     {
-        return view("seguridad.usuarios.lista", ["Usuarios" => Usuarios::all()]);
+        $Datos["Usuarios"]=Usuarios::all();
+        $Datos["GruposUsuarios"]=GruposUsuarios::all();
+        return view("seguridad.usuarios.lista", ["Datos" => $Datos])->with('Modulos', Modulos::all());
     }
 
     /**
@@ -82,9 +88,10 @@ class UsuariosController extends Controller
      * @param  \App\Usuarios  $usuarios
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuarios $usuarios)
+    public function update(Request $request, $id)
     {
-        //
+        Usuarios::where("id", $id)->update($request->only("id_grupo"));
+        return "Exito";
     }
 
     /**
@@ -97,4 +104,7 @@ class UsuariosController extends Controller
     {
         Usuarios::where("id", $id)->delete();
     }
+
+
+
 }

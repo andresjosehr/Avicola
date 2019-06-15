@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Categorias;
+use App\Modulos;
 
 class CategoriasController extends Controller
 {
@@ -15,7 +16,7 @@ class CategoriasController extends Controller
     public function index()
     {
         $Datos["Categorias"]=Categorias::all();
-        return view("maestros.categorias.categorias", ["Datos"=>$Datos]);
+        return view("maestros.categorias.categorias", ["Datos"=>$Datos])->with('Modulos', Modulos::all());
     }
 
     public function listUpdate()

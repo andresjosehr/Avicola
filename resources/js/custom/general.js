@@ -50,11 +50,13 @@ window.ValidarGeneral = (id, tipo, modulo) => {
                     }
                 }
 
+                if (tipo=="crear_cuenta") {
+                    crearCuenta(id, modulo);
+                }
+
             }
         });
 }
-
-
 
 
 

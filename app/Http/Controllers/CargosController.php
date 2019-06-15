@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cargos;
+use App\Modulos;
 
 class CargosController extends Controller
 {
@@ -15,7 +16,7 @@ class CargosController extends Controller
     public function index()
     {
         $Datos["Cargos"]=Cargos::all();
-        return view("maestros.cargos.cargos", ["Datos"=>$Datos]);
+        return view("maestros.cargos.cargos", ["Datos"=>$Datos])->with('Modulos', Modulos::all());
     }
 
 

@@ -22,6 +22,7 @@ class EmpleadosTable extends Migration
             $table->string('cargo')->nullable();
             $table->string('chofer')->nullable();
             $table->string('licencia')->nullable();
+            $table->string('id_usuario')->nullable();
             $table->timestamps();
         });
     }

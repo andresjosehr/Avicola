@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Automoviles;
 use App\Empleados;
+use App\Modulos;
 
 class AutomovilesController extends Controller
 {
@@ -17,7 +18,7 @@ class AutomovilesController extends Controller
     {
         $Datos["Automoviles"]=Automoviles::with("Chofer")->get();
         $Datos["Choferes"]=Empleados::where("chofer", "Si")->get();
-        return view("maestros.automoviles.automoviles", ["Datos" => $Datos]);
+        return view("maestros.automoviles.automoviles", ["Datos" => $Datos])->with('Modulos', Modulos::all());
     }
 
     public function listUpdate()

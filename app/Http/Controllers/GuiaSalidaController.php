@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Modulos;
 
 class GuiaSalidaController extends Controller
 {
@@ -13,7 +14,7 @@ class GuiaSalidaController extends Controller
      */
     public function index()
     {
-        return view("guias.guiaSalida.guiaSalida");
+        return view("guias.guiaSalida.guiaSalida")->with('Modulos', Modulos::all());
     }
 
     /**

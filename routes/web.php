@@ -1,5 +1,5 @@
 <?php
-
+use App\Modulos;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,9 +43,9 @@ Route::get('resetPass', function(){
 });
 Route::post('login', "SeguridadController@login");
 
-Route::group(['middleware' => ['VerificarSesion']], function () {
+Route::group(['middleware' => ['VerificarSesion', 'Seguridad']], function () {
 Route::get('/', function () {
-	    return view('escritorio');
+	    return view('escritorio')->with('Modulos', Modulos::all());
 	});
 
 
@@ -70,6 +70,7 @@ Route::get('/', function () {
 
 	Route::resource('empleados', "EmpleadosController");
 	Route::post('empleados/listUpdate', "EmpleadosController@listUpdate");
+	Route::post('empleados/crearCuenta', "EmpleadosController@crearCuenta");
 
 	Route::resource('choferes', "ChoferesController");
 	Route::post('choferes/listUpdate', "ChoferesController@listUpdate");
@@ -94,6 +95,10 @@ Route::get('/', function () {
 	Route::post('guias-pedido/listUpdate', "GuiasPedidoController@listUpdate");
 	Route::post('guias-pedido/listUpdateProductos', "GuiasPedidoController@listUpdateProductos");
 	Route::post('guias-pedido/listUpdateProductosEditar', "GuiasPedidoController@listUpdateProductosEditar");
+
+
+	Route::resource('grupos-usuarios', "GruposUsuariosController");
+	Route::post('grupos-usuarios/listUpdate', "GruposUsuariosController@listUpdate");
 	
 
 

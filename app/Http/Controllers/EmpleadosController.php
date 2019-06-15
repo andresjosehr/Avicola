@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Empleados;
 use App\Cargos;
+use App\Usuarios;
+use App\Modulos;
+use Hash;
 
 class EmpleadosController extends Controller
 {
@@ -17,7 +20,7 @@ class EmpleadosController extends Controller
     {
         $Datos["Empleados"]=Empleados::with("Cargo")->get();
         $Datos["Cargos"]=Cargos::all();
-        return view("maestros.empleados.empleados", ["Datos" => $Datos]);
+        return view("maestros.empleados.empleados", ["Datos" => $Datos])->with('Modulos', Modulos::all());
     }
 
     public function listUpdate()
@@ -35,6 +38,25 @@ class EmpleadosController extends Controller
     public function create()
     {
         //
+    }
+
+
+
+    public function crearCuenta(Request $request)
+    {
+        $Empleado = Empleados::where("id", $request->id_empleado)->first();
+
+        Usuarios::insert([
+            "nombre" => $Empleado->nombre." ".$Empleado->apellido_paterno." ".$Empleado->apellido_materno,
+            "email" => $Empleado->email,
+            "password" => Hash::make($request->password),
+            "rol" => "2"
+        ]);
+
+        $Usuario = Usuarios::orderBy("id", "DESC")->first();
+
+        Empleados::where("id", $request->id_empleado)->update(["id_usuario" => $Usuario->id]);
+        return "Exito";
     }
 
     /**

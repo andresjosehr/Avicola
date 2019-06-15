@@ -9,6 +9,7 @@ use App\TipoDocumento;
 use App\Paises;
 use App\Clientes;
 use App\Ubigeo;
+use App\Modulos;
 use DB;
 
 class ClientesController extends Controller
@@ -28,7 +29,7 @@ class ClientesController extends Controller
         $no_permitidas= array (" ", "ñ", "Ñ","á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
         $permitidas= array ("_", "n", "N","a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
 
-        return view("maestros.clientes.clientes", ["TipoPersonas" => $TipoPersona, "TipoDocumentos" => $TipoDocumento, "Paises" => $Paises, "Ubigeo" => $Ubigeo,"no_permitidas" => $no_permitidas, "permitidas" => $permitidas, "Clientes" => $Clientes]);
+        return view("maestros.clientes.clientes", ["TipoPersonas" => $TipoPersona, "TipoDocumentos" => $TipoDocumento, "Paises" => $Paises, "Ubigeo" => $Ubigeo,"no_permitidas" => $no_permitidas, "permitidas" => $permitidas, "Clientes" => $Clientes])->with('Modulos', Modulos::all());
     }
 
     /**

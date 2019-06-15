@@ -57,7 +57,7 @@
                   <div style="display: none" class="ln_solid"></div>
                   <div class="form-group">
                      <div class="col-md-12" style="padding-top: 15px;">
-                        <button {{-- type="submit" --}} onclick="ValidarGeneral('editarEmpleadoForm', 'update', 'empleados')" style="width: 100%" class="btn btn-success btn-modal btn_avicola">Guardar</button>
+                        <button onclick="ValidarGeneral('editarEmpleadoForm', 'update', 'empleados')" style="width: 100%" class="btn btn-success btn-modal btn_avicola">Guardar</button>
                         <div align="center">
                            <div class="loading_avicola" style="display:none;width: 35px;height: 35px;"></div>
                         </div>
