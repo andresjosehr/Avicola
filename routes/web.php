@@ -91,10 +91,21 @@ Route::get('/', function () {
 	Route::post('guias-entrada/listUpdate', "GuiasEntradaController@listUpdate");
 
 
+	Route::resource('guias-salida', "GuiaSalidaController");
+	Route::post('guias-salida/listUpdate', "GuiaSalidaController@listUpdate");
+	Route::post('guias-salida/listUpdateProductos', "GuiaSalidaController@listUpdateProductos");
+	Route::post('guias-salida/listUpdateProductosEditar', "GuiaSalidaController@listUpdateProductosEditar");
+
+
 	Route::resource('guias-pedido', "GuiasPedidoController");
 	Route::post('guias-pedido/listUpdate', "GuiasPedidoController@listUpdate");
 	Route::post('guias-pedido/listUpdateProductos', "GuiasPedidoController@listUpdateProductos");
 	Route::post('guias-pedido/listUpdateProductosEditar', "GuiasPedidoController@listUpdateProductosEditar");
+	Route::post('guias-pedido/crearProducto', "GuiasPedidoController@crearProducto");
+
+
+
+	Route::resource('liquidacion', "LiquidacionController");
 
 
 	Route::resource('grupos-usuarios', "GruposUsuariosController");

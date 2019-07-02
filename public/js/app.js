@@ -353,7 +353,7 @@ window.editarElemento = function (Datos, idForm) {
   $("#" + idForm + " input:not(.chosen-search-input, input[type=search], input[type=checkbox], input[type=radio])").map(function (key, input) {
     input.value = Datos[input.id];
   });
-  $("#" + idForm + " select:not(.chosen-search-input) select:not(.dataTables_length select) ").map(function (key, input) {
+  $("#" + idForm + " select:not(.chosen-search-input, .dataTables_length select) ").map(function (key, input) {
     input.value = Datos[input.id];
     $('#' + idForm + ' #' + input.id).trigger("chosen:updated");
   });

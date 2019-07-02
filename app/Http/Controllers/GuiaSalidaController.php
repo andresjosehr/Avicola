@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\TipoProductos;
+use App\Proveedores;
+use App\Productos;
+use App\UnidadesProductos;
+use App\Clientes;
+use App\GuiasSalida;
+use App\Empleados;
 use App\Modulos;
 
 class GuiaSalidaController extends Controller
@@ -14,8 +21,43 @@ class GuiaSalidaController extends Controller
      */
     public function index()
     {
-        return view("guias.guiaSalida.guiaSalida")->with('Modulos', Modulos::all());
+        $Datos["TipoProductos"]= TipoProductos::all();
+        $Datos["Clientes"]= Clientes::all();
+        $Datos["UnidadesProductos"] = UnidadesProductos::with("Producto")->with("GuiaEntrada.Proveedor")->get();
+        $Datos["Productos"] = Productos::all();
+        $Datos["Choferes"] = Empleados::where("chofer", "Si")->get();
+        $Datos["Empleados"] = Empleados::all();
+        $Datos["GuiasSalida"]= GuiasSalida::with("Cliente")->with("UnidadesProductos")->get();
+        return view("guias.guiasSalida.guiasSalida", ["Datos" => $Datos])->with('Modulos', Modulos::all());
     }
+
+    public function listUpdate()
+    {
+        $Datos["TipoProductos"]= TipoProductos::all();
+        $Datos["Clientes"]= Clientes::all();
+        $Datos["UnidadesProductos"] = UnidadesProductos::with("Producto")->with("GuiaEntrada.Proveedor")->get();
+        $Datos["Productos"] = Productos::all();
+        $Datos["Choferes"] = Empleados::where("chofer", "Si")->get();
+        $Datos["Empleados"] = Empleados::all();
+        $Datos["GuiasSalida"]= GuiasSalida::with("Cliente")->with("UnidadesProductos")->get();
+        return view("guias.guiasSalida.lista", ["Datos" => $Datos])->with('Modulos', Modulos::all());
+    }
+
+
+    public function listUpdateProductos()
+    {
+        $Datos["UnidadesProductos"] = UnidadesProductos::with("Producto")->with("GuiaEntrada.Proveedor")->get();
+        return view("guias.guiasSalida.productos", ["Datos" => $Datos]);
+    }
+
+
+    public function listUpdateProductosEditar()
+    {
+        $Datos["UnidadesProductos"] = UnidadesProductos::with("Producto")->with("GuiaEntrada.Proveedor")->get();
+        return view("guias.guiasSalida.productosEditar", ["Datos" => $Datos]);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -35,7 +77,15 @@ class GuiaSalidaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        GuiasSalida::insert($request->only("descripcion_guia", "fecha_entrega", "id_cliente", "id_empleado", "acompanante_1", "acompanante_2", "acompanante_3", "acompanante_4"));
+        $GuiasSalida=GuiasSalida::orderBy("id", "DESC")->first();
+
+        foreach (explode(",", $request->productos) as $Producto) {
+            UnidadesProductos::where("id", $Producto)->update(["estatus" => 1, "id_guia_salida" => $GuiasSalida->id]);
+        }
+
+        return "Exito";
     }
 
     /**
@@ -69,7 +119,15 @@ class GuiaSalidaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        GuiasSalida::where("id", $id)->update($request->only("descripcion_guia", "fecha_entrega", "id_cliente"));
+
+        UnidadesProductos::where("id_guia_salida",  $id)->update(["estatus" => 0, "id_guia_salida" => 0 ]);
+
+        foreach (explode(",", $request->productos) as $Producto) {
+            UnidadesProductos::where("id", $Producto)->update(["estatus" => 1, "id_guia_salida" => $id]);
+        }
+
+        return "Exito";
     }
 
     /**
@@ -80,6 +138,7 @@ class GuiaSalidaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        GuiasSalida::where("id", $id)->delete();
+        UnidadesProductos::where("id_guia_salida",  $id)->update(["estatus" => 0, "id_guia_salida" => 0 ]);
     }
 }

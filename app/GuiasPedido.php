@@ -19,4 +19,5 @@ class GuiasPedido extends Model
     {
     	return $this->hasMany(UnidadesProductos::class, "id_guia_pedido", "id");
     }
+
 }

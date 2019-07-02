@@ -1,15 +1,15 @@
-<div id="EscogerProductos" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="EscogerProductosEditar" style="z-index: 9999999;" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
             <h2 style="text-align: center;">Escoge los productos que pertenecen a la guia de entrada</h2>
          </div>
          <div class="modal-body">
-            <form id="RecopilarProductosForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
+            <form id="RecopilarProductosEditarForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
                <input type="hidden" id="Productos">
                <div class="row">
                   <div class="col-md-12">
-                     <table id="RecopilarProductosTable" class="display" style="width:100%">
+                     <table id="RecopilarProductosEditarTable" class="display" style="width:100%">
                        <thead>
                            <tr>
                                <th>ID</th>
@@ -22,7 +22,7 @@
                        </thead>
                        <tbody>
                            @foreach ($Datos["UnidadesProductos"] as $Producto)
-                              @if ($Producto->estatus!=2)
+                              @if ($Producto->estatus==0 || $Producto->estatus==1)
                                  <tr>
                                      <td>{{$Producto->id}}</td>
                                      <td>{{$Producto->Producto["descripcion"]}}</td>
@@ -30,14 +30,14 @@
                                      <td>{{$Producto->GuiaEntrada->Proveedor["nombre"]}}</td>
                                      <td>{{$Producto->peso}}</td>
                                      <td>
-                                        <div class="radio">
-                                          <label class="">
-                                            <div class="iradio_flat-green" style="position: relative;">
-                                               <input type="radio" class="flat" name="producto" id="pro_{{$Producto->id}}" value="{{$Producto->id}}" style="position: absolute; opacity: 0;">
-                                               <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                            </div> 
-                                          </label>
-                                        </div>
+                                        <div class="checkbox">
+                                           <label class="" onclick="ProductCountEdit('producto_{{$Producto->id}}')">
+                                             <div class="icheckbox_flat-green" style="position: relative;">
+                                                <input type="checkbox" class="flat" name="producto_{{$Producto->id}}" id="producto_{{$Producto->id}}" data-estatus="{{$Producto->estatus}}" data-id_guia_salida="{{$Producto->id_guia_salida}}" value="{{$Producto->id}}" style="position: absolute; opacity: 0;">
+                                                <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                             </div> 
+                                           </label>
+                                         </div>
                                      </td>
                                   </tr>
                               @endif
@@ -58,7 +58,7 @@
                   <div style="display: none" class="ln_solid"></div>
                   <div class="form-group">
                      <div class="col-md-12" style="padding-top: 15px;">
-                        <button type="button" onclick='producto_anadido();' style="width: 100%" class="btn btn-success btn-modal btn_avicola">Aceptar</button>
+                        <button type="button" onclick='ProductCountbtnEdit();' style="width: 100%" class="btn btn-success btn-modal btn_avicola">Aceptar</button>
                         <div align="center">
                            <div class="loading_avicola" style="display:none;width: 35px;height: 35px;"></div>
                         </div>
@@ -71,30 +71,47 @@
    </div>
 </div>
 <script>
+
+
    $(document).ready(function(){
       window.ProductNumber=0;
+      $("#editarGuiaSalida #product_numer").text(window.ProductNumber);
 
-      $('#RecopilarProductosForm #RecopilarProductosTable').DataTable({
-          language: {
-              url: 'http://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          }
-      });
+      $('#RecopilarProductosEditarForm #RecopilarProductosEditarTable').DataTable({
+                language: {
+                    url: 'http://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+                }
+            });
    })
+   function ProductCountEdit(elemento){
 
-   function producto_anadido(){
-
-    $('#EscogerProductos').modal('toggle');
-
-    $("#producto_anadido").val($("#RecopilarProductosForm input[name=producto]:checked").val());
-
-    $("#peso_sobrante").val(Number($("#peso_total").val())-(Number($("#peso_total_vendido").val())+Number($("#merma_total").val())))
-
-    crearGuiaPedido();
-
+      if ($("#RecopilarProductosEditarForm #"+elemento).prop("checked")==true) {
+         window.ProductNumber--;
+         $("#RecopilarProductosEditarForm #"+elemento).parent().addClass("checked");
+      }else{
+         window.ProductNumber++;
+         $("#RecopilarProductosEditarForm #"+elemento).parent().removeClass("checked");
+      }
+      console.log(elemento);
+      $("#editarGuiaSalida #product_numer").text(window.ProductNumber);
    }
 
 
+   function ProductCountbtnEdit(){
+
+      var Produc=0;
+      $("#RecopilarProductosEditarForm input").map(function(){
+         if($(this).prop("checked")==true){
+            Produc++;
+         }
+      })
+      
+      $("#editarGuiaSalida #product_numer").text(Produc);
+      $("#EscogerProductosEditar").modal("hide");
+   }
 </script>
+
+
 
 
 <style>  

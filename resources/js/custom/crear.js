@@ -4,7 +4,6 @@
 
 
 window.crearElemento=(idForm, modulo) => {
-
 	var Data={};
 	$("#"+idForm +" input,#"+idForm +" select").map((key, input) => Data[input.id]=input.value );
 

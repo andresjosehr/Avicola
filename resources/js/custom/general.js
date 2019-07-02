@@ -2,7 +2,6 @@
 
 window.ValidarGeneral = (id, tipo, modulo) => {
 
-
         var execute=false;
         var i=0;
         $("#"+id).on('submit', function(e){

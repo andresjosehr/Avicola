@@ -16,6 +16,9 @@ class UnidadesProductosTable extends Migration
         Schema::create('unidades_productos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('peso')->nullable();
+            $table->string('peso_vendido')->nullable();
+            $table->string('merma')->nullable();
+            $table->string('precio')->nullable();
             $table->string('id_guia_entrada')->nullable();
             $table->string('id_guia_pedido')->nullable();
             $table->string('id_guia_salida')->nullable();

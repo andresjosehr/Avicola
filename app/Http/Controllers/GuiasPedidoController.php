@@ -9,6 +9,7 @@ use App\Productos;
 use App\UnidadesProductos;
 use App\Clientes;
 use App\GuiasPedido;
+use App\GuiasSalida;
 use App\Empleados;
 use App\Modulos;
 
@@ -20,24 +21,33 @@ class GuiasPedidoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $Datos["TipoProductos"]= TipoProductos::all();
+    {           
+        // $Datos["TipoProductos"]= TipoProductos::all();
         $Datos["Clientes"]= Clientes::all();
         $Datos["UnidadesProductos"] = UnidadesProductos::with("Producto")->with("GuiaEntrada.Proveedor")->get();
-        $Datos["Productos"] = Productos::all();
+        // $Datos["Productos"] = Productos::all();
         $Datos["Choferes"] = Empleados::where("chofer", "Si")->get();
-        $Datos["GuiasPedido"]= GuiasPedido::with("Cliente")->with("UnidadesProductos")->get();
+        $Datos["Empleados"] = Empleados::all();
+        // $Datos["GuiasPedido"]= GuiasPedido::with("Cliente")->with("UnidadesProductos")->get();
+
+
+        $Datos["GuiasSalida"] = GuiasSalida::with("Cliente")->with("UnidadesProductos")->with("GuiaPedido")->get();
+
         return view("guias.guiasPedido.guiasPedido", ["Datos" => $Datos])->with('Modulos', Modulos::all());
     }
 
     public function listUpdate()
     {
-        $Datos["TipoProductos"]= TipoProductos::all();
+        // $Datos["TipoProductos"]= TipoProductos::all();
         $Datos["Clientes"]= Clientes::all();
         $Datos["UnidadesProductos"] = UnidadesProductos::with("Producto")->with("GuiaEntrada.Proveedor")->get();
-        $Datos["Productos"] = Productos::all();
+        // $Datos["Productos"] = Productos::all();
         $Datos["Choferes"] = Empleados::where("chofer", "Si")->get();
-        $Datos["GuiasPedido"]= GuiasPedido::with("Cliente")->with("UnidadesProductos")->get();
+        $Datos["Empleados"] = Empleados::all();
+        // $Datos["GuiasPedido"]= GuiasPedido::with("Cliente")->with("UnidadesProductos")->get();
+
+
+        $Datos["GuiasSalida"] = GuiasSalida::with("Cliente")->with("UnidadesProductos")->with("GuiaPedido")->get();
         return view("guias.guiasPedido.lista", ["Datos" => $Datos]);
     }
 
@@ -76,11 +86,22 @@ class GuiasPedidoController extends Controller
     public function store(Request $request)
     {
 
-        GuiasPedido::insert($request->only("descripcion_guia", "fecha_entrega", "id_cliente", "id_empleado"));
-        $GuiasPedido=GuiasPedido::orderBy("id", "DESC")->first();
+         GuiasPedido::insert($request->only("descripcion_guia", "fecha_entrega", "id_automovil", "id_cliente", "id_empleado", "id_guia_salida", "merma_total", "peso_total", "peso_total_vendido", "precio_total"));
 
-        foreach (explode(",", $request->productos) as $Producto) {
-            UnidadesProductos::where("id", $Producto)->update(["estatus" => 1, "id_guia_pedido" => $GuiasPedido->id]);
+        foreach (json_decode($request->productos, true) as $key => $value) {
+
+            $value["id_guia_pedido"] = $request->id_guia_salida;
+            $value["estatus"] = 2;
+            UnidadesProductos::where("id", $key)->update($value);
+        }
+
+        if ($request->producto_anadido!=null) {
+            $ProPro=UnidadesProductos::where("id" ,$request->producto_anadido)->first();
+
+            UnidadesProductos::where("id" ,$request->producto_anadido)->update([
+                "peso" => $ProPro->peso+$request->peso_sobrante,
+            ]);
+
         }
 
         return "Exito";
@@ -138,5 +159,19 @@ class GuiasPedidoController extends Controller
     {
         GuiasPedido::where("id", $id)->delete();
         UnidadesProductos::where("id_guia_pedido",  $id)->update(["estatus" => 0, "id_guia_pedido" => 0 ]);
+    }
+
+
+
+    public function crearProducto(Request $request)
+    {
+
+        $Unidad=UnidadesProductos::where("id_guia_salida", $request->id_guia_salida)->first();
+
+        UnidadesProductos::insert([
+            "peso" => $request->peso,
+            "estatus" => 0,
+            "id_guia_entrada" =>$Unidad->id_guia_entrada,
+        ]);
     }
 }

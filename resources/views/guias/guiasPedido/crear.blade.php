@@ -1,8 +1,3 @@
-<div class="contenedor">
-   <button onclick="$('#crearGuiaPedido').modal('toggle')" class="botonF1">
-   <span>+</span>
-   </button>
-</div>
 <div id="crearGuiaPedido" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -11,14 +6,13 @@
          </div>
          <div class="modal-body">
             <form id="crearGuiaPedidoForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" style="padding: 20px;">
-               <input type="hidden" id="Productos">
+               <input type="hidden" id="id_guia_salida">
+               <input type="hidden" id="id_empleado">
+               <input type="hidden" id="id_automovil">
+               <input type="hidden" id="id_cliente">
+               <input type="hidden" id="producto_anadido">
+               <input type="hidden" id="peso_sobrante">
                <div class="row">
-                  <div class="col-md-12">
-                     <div class="form-group">
-                        <small class='form_description' style="margin-bottom: 5px">Productos seleccionados: <span id="product_numer">0</span></small>
-                           <button onclick="$('#EscogerProductos').modal({backdrop: 'static',keyboard: false})" style="width: 100%; color:#757976 font-weight: 600;margin-bottom: 6px;margin-top: 5px;" type="button" class="btn btn-outline-success">Añadir Productos</button>
-                     </div>
-                  </div>
                   <div class="col-md-6">
                      <div class="form-group">
                         <small class='form_description'>Descripción de la Guia de Pedido</small>
@@ -31,31 +25,45 @@
                            <input type="date" id="fecha_entrega" required="required" class="form-control col-md-7 col-xs-12">
                      </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                      <div class="form-group">
-                        <small class='form_description'>Clientes</small>
-                           <select type="text" id="id_cliente" class="form-control col-md-7 col-xs-12">
-                              @foreach ($Datos["Clientes"] as $Cliente)
-                                 <option value="{{$Cliente->id}}">{{$Cliente->nombre}}</option>
-                              @endforeach
-                           </select>
+                        <small class='form_description'>Cartones devueltos</small>
+                           <input type="text" id="cartones" required="required" class="form-control col-md-7 col-xs-12">
                      </div>
                   </div>
-                  <div class="col-md-6">
+                  <div id="ProductosPedido">
+                     
+                  </div>
+                  <div class="col-md-3">
                      <div class="form-group">
-                        <small class='form_description'>Chofer</small>
-                           <select type="text" id="id_empleado" class="form-control col-md-7 col-xs-12">
-                              @foreach ($Datos["Choferes"] as $Chofer)
-                                 <option value="{{$Chofer->id}}">{{$Chofer->nombre}}</option>
-                              @endforeach
-                           </select>
+                        <small class='form_description'>Peso Total</small>
+                           <input type="text" disabled="disabled" id="peso_total" required="required" class="form-control col-md-7 col-xs-12">
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="form-group">
+                        <small class='form_description'>Peso total Vendido</small>
+                           <input type="text" disabled="disabled" id="peso_total_vendido" required="required" class="form-control col-md-7 col-xs-12">
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="form-group">
+                        <small class='form_description'>Merma Total</small>
+                           <input type="text" disabled="disabled" id="merma_total" required="required" class="form-control col-md-7 col-xs-12">
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="form-group">
+                        <small class='form_description'>Precio total vendido</small>
+                           <input type="text" disabled="disabled" id="precio_total" required="required" class="form-control col-md-7 col-xs-12">
                      </div>
                   </div>
                   <input type="hidden" id="productos">
                   <div style="display: none" class="ln_solid"></div>
                   <div class="form-group">
                      <div class="col-md-12" style="padding-top: 15px;">
-                        <button onclick="RecopDat(this)" style="width: 100%" class="btn btn-success btn-modal btn_avicola">Guardar</button>
+                        <button onclick="crearGuia(this)" style="width: 100%" class="btn btn-success btn-modal btn_avicola">Guardar</button>
+                        <button style="display: none" id='crear_gui_btn' onclick="ValidarGeneral('crearGuiaPedidoForm', 'crear', 'guias-pedido');" style="width: 100%" class="btn btn-success btn-modal">Guardar</button>
                         <div align="center">
                            <div class="loading_avicola" style="display:none;width: 35px;height: 35px;"></div>
                         </div>
@@ -74,104 +82,90 @@
 </style>
 <script>
 
-   function RecopDat(){
+   function crearGuia(){
 
-      var Pro='';
-      $("#RecopilarProductosForm input").map(function(){
-          if($(this).prop("checked")==true) {
-          Pro+=this.value+",";
-          }
-      });
-      $("#crearGuiaPedidoForm #productos").val(Pro);
-         ValidarGeneral('crearGuiaPedidoForm', 'crear', 'guias-pedido');
+      event.preventDefault();
+
+      if (Number($("#peso_total_vendido").val())+Number($("#merma_total").val())<Number($("#peso_total").val())) {
+
+            swal("Espera", "Al parecer el peso que se ha vendido ha sido menor al peso de la guia de salida. ¿Que quieres hacer con el peso del producto sobrante?", {
+               icon: "warning",
+              buttons: {
+                crear: {
+                  text: "Crear un nuevo nuevo producto con la medida de peso sobrante",
+                  value: "crear",
+                },
+                asignar: {
+                  text: "Asignar el peso sobrante a una unidad de producto existente",
+                  value: "asignar",
+                },
+              },
+            })
+            .then((value) => {
+              switch (value) {
+             
+                case "asignar":
+                  $('#EscogerProductos').modal('toggle');
+                  break;
+             
+                  case "crear":
+                  crearUnidadGuiaPedido();
+                  break;
+             
+                default:
+              }
+         });
+
       }
+   
+   }
+
+
+   function crearUnidadGuiaPedido() {
+
+      crearGuiaPedido();
+
+      var pesito = Number($("#peso_total").val())-(Number($("#peso_total_vendido").val())+Number($("#merma_total").val()))
+
+      $.ajax({
+          type: 'POST',
+          url: url+"/guias-pedido/crearProducto",
+          data:{
+            peso: pesito,
+            id_guia_salida: $("#peso_total").val(),
+          },
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+          success: function(result){
+            console.log(result)
+
+            if (result=="Exito") {
+            }
+
+         }
+      });
+   }
+
+
+   function crearGuiaPedido() {
+      var InfoPro={};
+      $(".info_pro input").map(function(){
+      if (InfoPro[$(this).attr('data_producto_id')]==undefined) InfoPro[$(this).attr('data_producto_id')]={}
+      InfoPro[$(this).attr('data_producto_id')][$(this).attr('data_producto_tipo')]=this.value
+
+      });
+
+      $("#productos").val(JSON.stringify(InfoPro));
+
+      $("#crear_gui_btn").click()
+   }
 
 
       $(document).ready(function(){
-         $("#crearGuiaPedidoForm #id_cliente, #crearGuiaPedidoForm #id_empleado").chosen();
-            // window.ProductCount=0;
-            // window.ProductTot=0;
+
+         $("#crearGuiaSalidaForm #acompanante_1, #crearGuiaSalidaForm #acompanante_2, #crearGuiaSalidaForm #acompanante_3, #crearGuiaSalidaForm #acompanante_4").val("");
+
+         $("#crearGuiaSalidaForm #id_cliente, #crearGuiaSalidaForm #id_empleado, #crearGuiaSalidaForm #acompanante_1, #crearGuiaSalidaForm #acompanante_2, #crearGuiaSalidaForm #acompanante_3, #crearGuiaSalidaForm #acompanante_4").chosen();
       });
-
-   // function RecopDat(e) {
-
-
-
-   //    var Productos={}, i=0;
-   //    $("#crearGuiaEntradaForm .input_div .row").map(function(){
-   //       Productos[i]={};
-   //       Productos[i].descripcion=$(this).find("#descripcion").val();
-   //       Productos[i].descripcion_corta=$(this).find("#descripcion_corta").val();
-   //       Productos[i].id_tipo_producto=$(this).find("#id_tipo_producto").val();
-   //       Productos[i].peso=$(this).find("#peso").val();  
-   //       Productos[i].id_proveedor=$("#crearGuiaEntradaForm #id_proveedor").val();  
-   //       i++;
-   //    });
-
-   //    $("#Productos").val(JSON.stringify(Productos));
-   //    console.log($("#Productos").val())
-   //    ValidarGeneral('crearGuiaEntradaForm', 'crear', 'guias-entrada');
-   // }
-
-
-
-   // function AddProduct(TipoProductos) {
-
-   //    if (window.ProductTot!=0) {
-   //       var descripcion       = $("#crearGuiaEntradaForm .div_product_"+window.ProductCount+" #descripcion").last().val();
-   //       var descripcion_corta = $("#crearGuiaEntradaForm .div_product_"+window.ProductCount+" #descripcion_corta").last().val();
-   //       var id_tipo_producto  = $("#crearGuiaEntradaForm .div_product_"+window.ProductCount+" #id_tipo_producto").last().val();
-   //    } else{
-   //       var descripcion       = "";
-   //       var descripcion_corta = "";
-   //       var id_tipo_producto  = "";
-   //    }
-
-
-   //    window.ProductCount++;
-   //    window.ProductTot++;
-   //    TipoProductos=JSON.parse(TipoProductos);
-   //    var selec=''
-   //    for (key in TipoProductos) {
-   //          selec += '<option value="'+TipoProductos[key].id+'">'+TipoProductos[key].descripcion+'</option>'
-   //    }
-
-   //    $("#crearGuiaEntradaForm .input_div").append('<div class="row div_product_'+window.ProductCount+'" style="margin-top: 10px; display:none">'+
-   //                            '   <div class="col-md-3">'+
-   //                            '      <input type="text" value="'+descripcion+'" id="descripcion" required="required" class="form-control col-md-7 col-xs-12" placeholder="Descripción">'+
-   //                            '   </div>'+
-   //                            '   <div class="col-md-3">'+
-   //                            '      <input type="text" value="'+descripcion_corta+'" id="descripcion_corta" required="required" class="form-control col-md-7 col-xs-12" placeholder="Descripción corta">'+
-   //                            '   </div>'+
-   //                            '   <div class="col-md-3">'+
-   //                            '      <select type="text" id="id_tipo_producto" required="required" class="form-control col-md-7 col-xs-12" placeholder="Tipo de Producto">'+selec+'</select>'+
-   //                            '   </div>'+
-   //                            '   <div class="col-md-2">'+
-   //                            '      <input type="text" id="peso" required="required" class="form-control col-md-7 col-xs-12" placeholder="Peso">'+
-   //                            '   </div>'+
-   //                            '   <div class="col-md-1">'+
-   //                            '      <button type="button" onclick="deleteProduct('+"'"+window.ProductCount+"'"+')" style="width: 100%" class="btn btn-danger btn-modal">'+
-   //                            '         <i style="border: 0px" class="fa fa-trash"></i>'+
-   //                            '      </button>'+
-   //                            '   </div>'+
-   //                            '</div>');
-
-   //    $('#crearGuiaEntradaForm .div_product_'+window.ProductCount+' #id_tipo_producto').chosen();
-   //    $('#crearGuiaEntradaForm .div_product_'+window.ProductCount+' #id_tipo_producto').val(id_tipo_producto);
-   //    $('#crearGuiaEntradaForm .div_product_'+window.ProductCount+' #id_tipo_producto').trigger("chosen:updated");
-
-   //    $('#crearGuiaEntradaForm .div_product_'+window.ProductCount).show(200);
-   //    $("#crearGuiaEntradaForm #product_numer").text(window.ProductTot);
-
-
-   // }
-   // function deleteProduct(id) {
-   //    window.ProductTot--;
-   //    $("#crearGuiaEntradaForm #product_numer").text(window.ProductTot);
-   //    $("#crearGuiaEntradaForm .div_product_"+id).hide(200, function() {
-   //      $("#crearGuiaEntradaForm .div_product_"+id).remove()
-   //    })
-   // }
 </script>
 <style>
    .btn-modal{

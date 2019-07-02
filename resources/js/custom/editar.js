@@ -13,7 +13,7 @@ window.editarElemento=(Datos, idForm)=>{
 		input.value=Datos[input.id] 
 	});
 
-	$("#"+idForm+" select:not(.chosen-search-input) select:not(.dataTables_length select) ").map((key, input)=>{ 
+	$("#"+idForm+" select:not(.chosen-search-input, .dataTables_length select) ").map((key, input)=>{ 
 		input.value=Datos[input.id];
 		$('#'+idForm+' #'+input.id).trigger("chosen:updated");
 	});
