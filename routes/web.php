@@ -45,7 +45,7 @@ Route::post('login', "SeguridadController@login");
 
 Route::group(['middleware' => ['VerificarSesion', 'Seguridad']], function () {
 Route::get('/', function () {
-	    return view('escritorio')->with('Modulos', Modulos::all());
+	    return view('escritorio')->with('Modulos', Modulos::orderBy("descripcion", "asc")->get());
 	});
 
 
@@ -110,6 +110,10 @@ Route::get('/', function () {
 
 	Route::resource('grupos-usuarios', "GruposUsuariosController");
 	Route::post('grupos-usuarios/listUpdate', "GruposUsuariosController@listUpdate");
+
+
+	Route::resource('almacen', "AlmacenController");
+
 	
 
 

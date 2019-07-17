@@ -4,7 +4,6 @@
                 <th>ID</th>
                 <th>Descripcion</th>
                 <th>Fecha pautada para la entrega</th>
-                <th>Cliente</th>
                 <th>Numero de productos</th>
                 <th>Acciones</th>
             </tr>
@@ -15,7 +14,6 @@
                     <td>{{$GuiaSalida->id}}</td>
                     <td>{{$GuiaSalida->descripcion_guia}}</td>
                     <td>{{$GuiaSalida->fecha_entrega}}</td>
-                    <td>{{$GuiaSalida->Cliente["nombre"]}}</td>
                     <td>{{count($GuiaSalida->UnidadesProductos)}}</td>
                     <td style="display: flex;">
                         <a onclick="editarGuiaSalida('{{$GuiaSalida}}')" class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar </a>
@@ -29,7 +27,6 @@
                 <th>ID</th>
                 <th>Descripcion</th>
                 <th>Fecha de ingreso</th>
-                <th>Cliente</th>
                 <th>Numero de productos</th>
                 <th>Acciones</th>
             </tr>

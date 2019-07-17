@@ -19,7 +19,6 @@ class GuiasSalidaTable extends Migration
             $table->string('fecha_entrega')->nullable();
             $table->string('id_empleado')->nullable();
             $table->string('id_automovil')->nullable();
-            $table->string('id_cliente')->nullable();
             $table->string('acompanante_1')->nullable();
             $table->string('acompanante_2')->nullable();
             $table->string('acompanante_3')->nullable();

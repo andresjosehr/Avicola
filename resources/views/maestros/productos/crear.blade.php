@@ -34,7 +34,7 @@
                            </select>
                      </div>
                   </div>
-                   <div class="col-md-6">
+                  <div class="col-md-6">
                      <div class="form-group">
                         <small class='form_description'>Proveedor del Producto</small>
                            <select id="id_proveedor" required="required" class="form-control col-md-7 col-xs-12">
@@ -44,6 +44,15 @@
                            </select>
                      </div>
                   </div>
+                  <div id="price_product">
+                     
+                  </div>
+                  <div class="col-md-12">
+                     <div class="form-group">
+                        <button type="button" class="btn btn-info btn-block" onclick="AnadirPre()" style="margin-top: 20px">Añadir precio</button>
+                     </div>
+                  </div>
+
                   <div style="display: none" class="ln_solid"></div>
                   <div class="form-group">
                      <div class="col-md-12" style="padding-top: 15px;">
@@ -63,7 +72,23 @@
 <script>
    $(document).ready(function(){
       $("#crearProductoForm #id_tipo_producto, #crearProductoForm #id_proveedor").chosen();
+      window.precios=0;
    })
+
+   function AnadirPre() {
+
+   
+      if (window.precios<4) {
+         window.precios++;
+         $("#price_product").append('<div class="col-md-3" style="display: none;margin-top: 10px" id="precio'+window.precios+'">'+
+                                       '<div class="form-group">'+
+                                          '<small class="form_description">Precio '+window.precios+' del producto</small>'+
+                                             '<input type="text" id="precio_'+window.precios+'" class="form-control col-md-7 col-xs-12">'+
+                                       '</div>'+
+                                    '</div>');
+         $("#precio"+window.precios).show(200);
+      }
+   }
 </script>
 <style>
    .btn-modal{

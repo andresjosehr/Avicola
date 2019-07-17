@@ -41,6 +41,30 @@
                            </select>
                      </div>
                   </div>
+                  <div class="col-md-3" style="margin-top: 10px" id="precio'+window.precios+'">
+                    <div class="form-group">
+                       <small class="form_description">Precio 1 del producto</small>
+                          <input type="text" id="precio_1" class="form-control col-md-7 col-xs-12">
+                    </div>
+                  </div>
+                  <div class="col-md-3" style="margin-top: 10px" id="precio'+window.precios+'">
+                    <div class="form-group">
+                       <small class="form_description">Precio 2 del producto</small>
+                          <input type="text" id="precio_2" class="form-control col-md-7 col-xs-12">
+                    </div>
+                  </div>
+                  <div class="col-md-3" style="margin-top: 10px" id="precio'+window.precios+'">
+                    <div class="form-group">
+                       <small class="form_description">Precio 3 del producto</small>
+                          <input type="text" id="precio_3" class="form-control col-md-7 col-xs-12">
+                    </div>
+                  </div>
+                  <div class="col-md-3" style="margin-top: 10px" id="precio'+window.precios+'">
+                    <div class="form-group">
+                       <small class="form_description">Precio 4 del producto</small>
+                          <input type="text" id="precio_4" class="form-control col-md-7 col-xs-12">
+                    </div>
+                  </div>
                   <div style="display: none" class="ln_solid"></div>
                   <div class="form-group">
                      <div class="col-md-12" style="padding-top: 15px;">

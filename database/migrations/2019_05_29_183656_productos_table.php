@@ -21,6 +21,10 @@ class ProductosTable extends Migration
             $table->string('id_proveedor')->nullable();
             $table->string('id_tipo_producto')->nullable();
             $table->string('id_guia_entrada')->nullable();
+            $table->string('precio_1')->nullable();
+            $table->string('precio_2')->nullable();
+            $table->string('precio_3')->nullable();
+            $table->string('precio_4')->nullable();
             $table->timestamps();
         });
     }

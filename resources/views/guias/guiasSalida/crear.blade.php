@@ -31,17 +31,7 @@
                            <input type="date" id="fecha_entrega" required="required" class="form-control col-md-7 col-xs-12">
                      </div>
                   </div>
-                  <div class="col-md-6">
-                     <div class="form-group">
-                        <small class='form_description'>Clientes</small>
-                           <select type="text" id="id_cliente" class="form-control col-md-7 col-xs-12">
-                              @foreach ($Datos["Clientes"] as $Cliente)
-                                 <option value="{{$Cliente->id}}">{{$Cliente->nombre}}</option>
-                              @endforeach
-                           </select>
-                     </div>
-                  </div>
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                      <div class="form-group">
                         <small class='form_description'>Chofer</small>
                            <select type="text" id="id_empleado" class="form-control col-md-7 col-xs-12">
