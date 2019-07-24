@@ -17,14 +17,11 @@ class GuiasPedidoTable extends Migration
             $table->increments('id');
             $table->string('descripcion_guia')->nullable();
             $table->string('fecha_entrega')->nullable();
-            $table->string('id_empleado')->nullable();
-            $table->string('id_automovil')->nullable();
-            $table->string('id_cliente')->nullable();
             $table->string('id_guia_salida')->nullable();
             $table->string('merma_total')->nullable();
-            $table->string('peso_total')->nullable();
             $table->string('peso_total_vendido')->nullable();
-            $table->string('precio_total')->nullable();
+            $table->string('precio_total_vendido')->nullable();
+            $table->string('cartones_devueltos')->nullable();
             $table->timestamps();
         });
     }

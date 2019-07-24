@@ -12,6 +12,7 @@ use App\GuiasPedido;
 use App\GuiasSalida;
 use App\Empleados;
 use App\Modulos;
+use App\VentasGuiaPedido;
 
 class GuiasPedidoController extends Controller
 {
@@ -22,18 +23,19 @@ class GuiasPedidoController extends Controller
      */
     public function index()
     {           
+
         // $Datos["TipoProductos"]= TipoProductos::all();
+        // $Datos["Productos"] = Productos::all();
+        $Datos["GuiasPedido"]= GuiasPedido::with("GuiaSalida")->with("Ventas")->get();
         $Datos["Clientes"]= Clientes::all();
         $Datos["UnidadesProductos"] = UnidadesProductos::with("Producto")->with("GuiaEntrada.Proveedor")->get();
-        // $Datos["Productos"] = Productos::all();
         $Datos["Choferes"] = Empleados::where("chofer", "Si")->get();
         $Datos["Empleados"] = Empleados::all();
-        // $Datos["GuiasPedido"]= GuiasPedido::with("Cliente")->with("UnidadesProductos")->get();
 
-
-        $Datos["GuiasSalida"] = GuiasSalida::with("Cliente")->with("UnidadesProductos")->with("GuiaPedido")->get();
+        $Datos["GuiasSalida"] = GuiasSalida::with("Cliente")->with("UnidadesProductos.Producto")->with("GuiaPedido")->get();
 
         return view("guias.guiasPedido.guiasPedido", ["Datos" => $Datos])->with('Modulos', Modulos::all());
+        
     }
 
     public function listUpdate()
@@ -77,6 +79,13 @@ class GuiasPedidoController extends Controller
         //
     }
 
+    public function VerGuia($id)
+    {
+        $Datos["GuiaPedido"]= GuiasPedido::where("id", $id)->with("GuiaSalida")->with("Ventas.ClienteN")->first();
+
+        return view("guias.guiasPedido.editar", ["Datos" => $Datos]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -86,23 +95,33 @@ class GuiasPedidoController extends Controller
     public function store(Request $request)
     {
 
-         GuiasPedido::insert($request->only("descripcion_guia", "fecha_entrega", "id_automovil", "id_cliente", "id_empleado", "id_guia_salida", "merma_total", "peso_total", "peso_total_vendido", "precio_total"));
+         GuiasPedido::insert([
+            "descripcion_guia"     => $request->descripcion_guia_pedido,
+            "fecha_entrega"        => $request->fecha_entrega_guia_salida,
+            "id_guia_salida"       => $request->id_guia_salida,
+            "merma_total"          => $request->merma,
+            "peso_total_vendido"   => $request->peso_vendido,
+            "precio_total_vendido" => $request->precio_vendido,
+            "cartones_devueltos"   => $request->cartones,
+         ]);
 
-        foreach (json_decode($request->productos, true) as $key => $value) {
+         $Guia=GuiasPedido::orderBy("id", "DESC")->first();
 
-            $value["id_guia_pedido"] = $request->id_guia_salida;
-            $value["estatus"] = 2;
-            UnidadesProductos::where("id", $key)->update($value);
-        }
+         for ($i=1; $i <100 ; $i++) { 
+             if ($request->only("peso_".$i)!=null) {
 
-        if ($request->producto_anadido!=null) {
-            $ProPro=UnidadesProductos::where("id" ,$request->producto_anadido)->first();
+                 VentasGuiaPedido::insert([
+                    "id_guia_pedido" => $Guia->id,
+                    "cliente"        => $request->only("cliente_".$i)["cliente_".$i],
+                    "precio"         => $request->only("preciorango_".$i)["preciorango_".$i],
+                    "peso"           => $request->only("peso_".$i)["peso_".$i],
+                    "precio_vendido" => $request->only("preciovendido_".$i)["preciovendido_".$i],
+                 ]);
 
-            UnidadesProductos::where("id" ,$request->producto_anadido)->update([
-                "peso" => $ProPro->peso+$request->peso_sobrante,
-            ]);
-
-        }
+             } else{
+                break;
+             }
+         }
 
         return "Exito";
     }

@@ -14,6 +14,16 @@ class GuiasPedido extends Model
     	return $this->hasOne(Clientes::class, "id", "id_cliente");
     }
 
+    public function GuiaSalida()
+    {
+    	return $this->hasOne(GuiasSalida::class, "id", "id_guia_salida");
+    }
+
+    public function Ventas()
+    {
+    	return $this->hasMany(VentasGuiaPedido::class, "id_guia_pedido", "id");
+    }
+
 
     public function UnidadesProductos()
     {

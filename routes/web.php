@@ -103,6 +103,8 @@ Route::get('/', function () {
 	Route::post('guias-pedido/listUpdateProductosEditar', "GuiasPedidoController@listUpdateProductosEditar");
 	Route::post('guias-pedido/crearProducto', "GuiasPedidoController@crearProducto");
 
+	Route::post('ver-guia-salida/{id}', "GuiasPedidoController@VerGuia");
+
 
 
 	Route::resource('liquidacion', "LiquidacionController");
